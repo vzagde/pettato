@@ -30,7 +30,7 @@ var myChat = null;
 var myChatMessagebar = null;
 var new_chat_time = null;
 
-openFB.init('1709189259297910', '', window.localStorage);
+openFB.init('2106128496268926', '', window.localStorage);
 
 var calendarDefault;
 

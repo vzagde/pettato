@@ -1,11 +1,11 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "Neon Buzz",
-  "short_name": "Neon Buzz",
+  "name": "Pettato",
+  "short_name": "Pettato",
   "version": "com.kreaserv.neonbuzz",
-  "description": "Neon Buzz App",
-  "author": "Kreaserv Team",
+  "description": "Pettato App",
+  "author": "Notch It Up Team",
   "icons": [
     {
       "src": "app_icon.png",
