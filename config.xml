@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.kreaserv.neonbuzz" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Neon Buzz</name>
+    <name>Pettato</name>
     <description>
-        Neon Buzz App
+        Pettato App
     </description>
-    <author email="info@kreaserv.com" href="http://kreaserv.com">
-        Kreaserv Team
+    <author email="vishal@notchitup.in" href="http://notchitup.in">
+        Notch It Up Team
     </author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
