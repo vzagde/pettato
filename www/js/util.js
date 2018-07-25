@@ -260,7 +260,7 @@ function image_camera() {
 
 function shopper_register_onSuccess(fileURL) {
     myApp.alert('uploading image '+fileURL);
-    var uri = encodeURI(image_url);
+    var uri = encodeURI(base_url + "upload_user");
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
