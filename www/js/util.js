@@ -259,7 +259,7 @@ function image_camera() {
 }
 
 function shopper_register_onSuccess(fileURL) {
-    myApp.showPreloader('uploading image '+fileURL);
+    myApp.alert('uploading image '+fileURL);
     var uri = encodeURI(base_url + "/upload_user");
     var options = new FileUploadOptions();
     options.fileKey = "file";
@@ -274,13 +274,14 @@ function shopper_register_onSuccess(fileURL) {
 
 function shopper_register_onSuccess_file(res) {
     console.log('res: ' + j2s(res));
-    myApp.showPreloader(res);
+    myApp.alert(res.responseCode);
     myApp.hidePreloader();
     if (res.responseCode == 200) {
+        myApp.alert(res.response);
         uploaded_image = res.response.replace(/\"/g, "");
-        myApp.showPreloader("ststus 200");
         image_from_device = uploaded_image;
         console.log('uploaded_image: ' + uploaded_image);
+        myApp.alert(image_from_device);
         // $('#shopper_register-profile_image').val(uploaded_image);
         myApp.alert("Image Uploaded Successfully");
     } else {
