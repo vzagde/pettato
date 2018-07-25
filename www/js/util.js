@@ -3,10 +3,93 @@ function j2s(json) {
     return JSON.stringify(json);
 }
 
+function goto_page(page) {
+    mainView.router.load({
+        url: page,
+        ignoreCache: false,
+    });
+}
+
+function continue_btn_signup() {
+    if (!token == false) {
+        myApp.showIndicator();
+        $.ajax({
+            url: base_url + '/get_user',
+            type: 'POST',
+            crossDomain: true,
+            async: false,
+            data: {
+                user_id: token
+            },
+        })
+        .done(function(res) {
+            console.log('res: ' + j2s(res));
+            myApp.hideIndicator();
+            if (res.status = 'success') {
+                user_data = res.data;
+                mainView.router.load({
+                    url: 'feeds.html',
+                    ignoreCache: false,
+                });
+            } else {
+                mainView.router.load({
+                    url: 'before_register.html',
+                    ignoreCache: false,
+                });
+            }
+        }).fail(function(err) {
+            myApp.hideIndicator();
+            myApp.alert('Some error occurred');
+        }).always();
+    } else {
+        mainView.router.load({
+            url: 'before_register.html',
+            ignoreCache: false,
+        });
+    }
+}
+
+function continue_btn_signin() {
+    if (!token == false) {
+        myApp.showIndicator();
+        $.ajax({
+            url: base_url + '/get_user',
+            type: 'POST',
+            crossDomain: true,
+            async: false,
+            data: {
+                user_id: token
+            },
+        })
+        .done(function(res) {
+            console.log('res: ' + j2s(res));
+            myApp.hideIndicator();
+            if (res.status = 'success') {
+                user_data = res.data;
+                mainView.router.load({
+                    url: 'feeds.html',
+                    ignoreCache: false,
+                });
+            } else {
+                mainView.router.load({
+                    url: 'login.html',
+                    ignoreCache: false,
+                });
+            }
+        }).fail(function(err) {
+            myApp.hideIndicator();
+            myApp.alert('Some error occurred');
+        }).always();
+    } else {
+        mainView.router.load({
+            url: 'login.html',
+            ignoreCache: false,
+        });
+    }
+}
+
 function goto_register(type) {
-
     myApp.showIndicator();
-
     if (type == 'shopper') {
         mainView.router.load({
             url: 'shopper_register.html',
@@ -20,12 +103,124 @@ function goto_register(type) {
     }
 }
 
-function goto_page(page) {
-    mainView.router.load({
-        url: page,
-        ignoreCache: false,
+
+function register_shopper() {
+    console.log(calendarDefault.value);
+    var name = $('#shopper_register-name').val().trim();
+    var username = $('#shopper_register-username').val().trim();
+    var email = $('#shopper_register-email').val().trim();
+    var password = $('#shopper_register-password').val().trim();
+    var confirm_password = $('#shopper_register-confirm_password').val().trim();
+    var city_id = $('#shopper_register-city_select').val();
+    var dob = $('#shopper_register-dob').val().trim();
+
+    var profile_image = image_from_device.trim();
+    var phone = $('#shopper_register-phone').val().trim();
+
+    if (name == '') {
+        myApp.alert('Please provide name.');
+        return false;
+    }
+    if (email == '') {
+        myApp.alert('Please provide Email Id.');
+        return false;
+    }
+    if (!email.match(email_regex)) {
+        myApp.alert('Please provide valid Email Id.');
+        return false;
+    }
+
+    if (password == '') {
+        myApp.alert('Please enter Password.');
+        return false;
+    }
+
+    if (phone !== '') {
+        if (!phone.match(phone_regex)) {
+            myApp.alert('Please enter valid Phone Number.');
+            return false;
+        }
+    }
+
+    if (confirm_password == '') {
+        myApp.alert('Please confirm password.');
+        return false;
+    }
+    if (password!=confirm_password) {
+        myApp.alert('Password doen not match.');
+        return false;
+    }
+
+    if (city_id == '') {
+        myApp.alert('Please provide city.');
+        return false;
+    }
+
+    if (dob == '') {
+        myApp.alert('Please enter date of birth.');
+        return false;
+    }
+
+    if (profile_image == '') {
+        myApp.alert('Please upload profile image.');
+        return false;
+    }
+
+    myApp.showIndicator();
+    $.ajax({
+        url: base_url + 'create_user',
+        type: 'POST',
+        dataType: 'json',
+        crossDomain: true,
+        data: {
+            username: username,
+            email:email,
+            first_name: name,
+            password: password,
+            city_id: city_id,
+            dob: dob,
+            image: profile_image,
+            medium: 'register',
+            user_type: 'User',
+            phone: phone,
+        },
+    })
+    .done(function(res) {
+        console.log("success: " + j2s(res));
+        myApp.hideIndicator();
+        if (res.status == 'success') {
+            Lockr.set('token', res.data.user_id);
+            token = res.data.user_id;
+            user_data = res.data;
+            mainView.router.load({
+                url: 'feeds.html',
+                ignoreCache: false,
+                query: {
+                    register: true
+                },
+            });
+        } else {
+            myApp.alert('Email or Password mismatch');
+        }
+    })
+    .fail(function(err) {
+        myApp.hideIndicator();
+        console.log("error: " + j2s(err));
+        // myApp.alert("error: "+j2s(err));
+    })
+    .always(function() {
+        console.log("complete");
     });
 }
+
+
+
+
+
+
+
+
+
 
 function bottom_tabs() {
     clearInterval(new_comment_interval);
@@ -242,122 +437,6 @@ $(document).on('change','#shopper_register-dob',function(){
 })
 
 
-function register_shopper() {
-    console.log('shopper_register');
-    console.log(calendarDefault.value);
-    var name = $('#shopper_register-name').val().trim();
-    var email = $('#shopper_register-email').val().trim();
-    var password = $('#shopper_register-password').val().trim();
-    var confirm_password = $('#shopper_register-confirm_password').val().trim();
-    var city_id = $('#shopper_register-city_select').val();
-    var location_id = $('#shopper_register-location_select').val();
-    var gender = $('input[name=shopper_register-gender]:checked').val();
-
-    var dob = $('#shopper_register-dob').val().trim();
-
-    // var dob = calendarDefault.value[0];
-    // var profile_image = $('#shopper_register-profile_image').val().trim();
-    var profile_image = image_from_device.trim();
-    var phone = $('#shopper_register-phone').val().trim();
-
-    if (name == '') {
-        myApp.alert('Please provide name.');
-        return false;
-    }
-    if (email == '') {
-        myApp.alert('Please provide Email Id.');
-        return false;
-    }
-    if (!email.match(email_regex)) {
-        myApp.alert('Please provide valid Email Id.');
-        return false;
-    }
-    if (!phone.match(phone_regex)) {
-        myApp.alert('Please enter valid Phone Number.');
-        return false;
-    }
-    if (password == '') {
-        myApp.alert('Please enter Password.');
-        return false;
-    }
-    if (confirm_password == '') {
-        myApp.alert('Please confirm password.');
-        return false;
-    }
-    if (password!=confirm_password) {
-        myApp.alert('Password mismatch.');
-        return false;
-    }
-    if (city_id == '') {
-        myApp.alert('Please provide city.');
-        return false;
-    }
-    if (!location_id) {
-        myApp.alert('Please provide location.');
-        return false;
-    }
-    if (!gender) {
-        myApp.alert('Please select gender.');
-        return false;
-    }
-    if (dob == '') {
-        myApp.alert('Please enter date of birth.');
-        return false;
-    }
-    if (profile_image == '') {
-        myApp.alert('Please upload profile image.');
-        return false;
-    }
-
-    myApp.showIndicator();
-    $.ajax({
-        url: base_url + '/create_user',
-        type: 'POST',
-        dataType: 'json',
-        crossDomain: true,
-        data: {
-            identity: email,
-            username: email,
-            email:email,
-            first_name: name,
-            password: password,
-            city_id: city_id,
-            location_id: location_id,
-            gender: gender,
-            dob: dob,
-            image: profile_image,
-            medium: 'register',
-            user_type: 'Shopper',
-            phone: phone,
-        },
-    })
-    .done(function(res) {
-        console.log("success: " + j2s(res));
-        myApp.hideIndicator();
-        if (res.status == 'success') {
-            Lockr.set('token', res.data.user_id);
-            token = res.data.user_id;
-            user_data = res.data;
-            mainView.router.load({
-                url: 'feeds.html',
-                ignoreCache: false,
-                query: {
-                    register: true
-                },
-            });
-        } else {
-            myApp.alert('Email or Password mismatch');
-        }
-    })
-    .fail(function(err) {
-        myApp.hideIndicator();
-        console.log("error: " + j2s(err));
-        // myApp.alert("error: "+j2s(err));
-    })
-    .always(function() {
-        console.log("complete");
-    });
-}
 
 function update_shopper_profile() {
     console.log('shopper-update');
@@ -685,7 +764,7 @@ function logout() {
 function load_city(selecter) {
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/get_city',
+        url: base_url + 'get_city_master',
         type: 'POST',
         crossDomain: true,
         async: false,
@@ -694,10 +773,10 @@ function load_city(selecter) {
     .done(function(res) {
         console.log('res: ' + j2s(res));
         myApp.hideIndicator();
-        if (res.status == 'success') {
+        if (res.status == 'Success') {
             html = '<option value="">Select City</option>';
-            $.each(res.data, function(index, val) {
-                html += '<option value="' + val.id + '" >' + val.name + '</option>';
+            $.each(res.response, function(index, val) {
+                html += '<option value="' + val.id + '" >' + val.city + '</option>';
             });
             $(selecter).append(html)
         } else {}
@@ -2701,45 +2780,6 @@ function login_via_fb(data) {
     .always(function() {});
 }
 
-function continue_btn() {
-    if (!token == false) {
-        myApp.showIndicator();
-        $.ajax({
-            url: base_url + '/get_user',
-            type: 'POST',
-            crossDomain: true,
-            async: false,
-            data: {
-                user_id: token
-            },
-        })
-        .done(function(res) {
-            console.log('res: ' + j2s(res));
-            myApp.hideIndicator();
-            if (res.status = 'success') {
-                user_data = res.data;
-                mainView.router.load({
-                    url: 'feeds.html',
-                    ignoreCache: false,
-                });
-            } else {
-                mainView.router.load({
-                    url: 'login.html',
-                    ignoreCache: false,
-                });
-            }
-        }).fail(function(err) {
-            myApp.hideIndicator();
-            myApp.alert('Some error occurred');
-        }).always();
-    } else {
-        mainView.router.load({
-            url: 'login.html',
-            ignoreCache: false,
-        });
-    }
-}
-
 function open_dialog_for_image() {
     var buttons1 = [{
         text: 'choose source',
@@ -2773,7 +2813,7 @@ function onDeviceReady() {
             console.log('feeds');
             myApp.confirm('would you like to exit app.', function() {
                 navigator.app.clearHistory();
-                gaPlugin.exit(nativePluginResultHandler, nativePluginErrorHandler);
+                // gaPlugin.exit(nativePluginResultHandler, nativePluginErrorHandler);
                 navigator.app.exitApp();
             });
         } else {
@@ -2783,8 +2823,8 @@ function onDeviceReady() {
         }
     }, false);
 
-    gaPlugin = window.plugins.gaPlugin;
-    gaPlugin.init(nativePluginResultHandler, nativePluginErrorHandler, "UA-78959047-1", 10);
+    // gaPlugin = window.plugins.gaPlugin;
+    // gaPlugin.init(nativePluginResultHandler, nativePluginErrorHandler, "UA-78959047-1", 10);
 }
 
 function nativePluginResultHandler(result) {

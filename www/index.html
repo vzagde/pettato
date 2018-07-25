@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="theme-color" content="#2196f3">
-    <title>NeonBuzz</title>
+    <title>Pettato</title>
     <link rel="stylesheet" href="./css/framework7.material.min.css">
     <link rel="stylesheet" href="./css/framework7.material.colors.min.css">
     <link rel="stylesheet" href="./css/materialize-tags.css">
@@ -21,18 +21,31 @@
     <link rel="stylesheet" href="./css/material-icons.css">
     <link rel="icon" href="img/icon.png">
 </head>
-
 <body>
-
-    <!-- First, we need to add Panel's overlay that will overlays app while panel is opened -->
+    <!-- <div class="views">
+        <div class="statusbar"></div>
+        <div class="view view-main">
+            <div data-name="index" class="page">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="title">Awesome App</div>
+                    </div>
+                </div>
+                <div class="toolbar">
+                    <div class="toolbar-inner">
+                        <a href="#" class="link">Link 1</a>
+                        <a href="#" class="link">Link 2</a>
+                    </div>
+                </div>
+                <div class="page-content landing_bg">
+                </div>
+            </div>
+        </div>
+    </div> -->
     <div class="panel-overlay"></div>
-
-    <!-- Left panel -->
     <div class="panel men_u panel-left panel-reveal">
-		<center><img src="img/neon.png" class="menu_logo" alt="" /></center>
+        <center><img src="img/neon.png" class="menu_logo" alt="" /></center>
         <div class="content-block menu_sub">
-            <!-- <p>Left Panel content here</p> -->
-            <!-- Click on link with "close-panel" class will close panel -->
             <p><a href="search.html" class="close-panel menu_a">Search</a></p>
             <p><a href="feeds.html" class="close-panel menu_a">feeds</a></p>
             <p><a href="buzzs.html" class="close-panel menu_a">buzzs</a></p>
@@ -45,64 +58,37 @@
             <p><a href="#" onclick="logout()" class="close-panel menu_a">logout</a></p>
         </div>
     </div>
-
-    <!-- Views -->
     <div class="views">
-        <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
-            <!-- Pages container, because we use fixed navbar and toolbar, it has additional appropriate classes-->
             <div class="pages navbar-fixed toolbar-fixed">
-                <!-- Page, "data-page" contains page name -->
                 <div data-page="index" class="page">
-
-                    <!-- Top Navbar. In Material theme it should be inside of the page-->
-                    <!-- <div class="navbar">
-                      <div class="navbar-inner">
-                        <div class="center">Awesome App</div>
-                      </div>
+                    <!-- <div class="page-content">
+                        <p>Page content goes here</p>
+                        <a href="/login/">About app</a>
                     </div> -->
-
-                    <!-- Bottom Toolbar. In Material theme it should be inside of the page-->
-                    <!-- <div class="toolbar"> -->
-                    <!-- <div class="toolbar-inner"> -->
-                    <!-- Toolbar links -->
-                    <!-- <a href="spec.html" class="link">Link 1</a> -->
-                    <!-- <a href="login.html" class="link">Link 2</a> -->
-                    <!-- </div> -->
-                    <!-- </div> -->
-
-                    <!-- Scrollable page content -->
                     <div class="page-content landing_bg">
                         <div class="content-block">
-                            <img src="img/neon.png" class="ne_on" alt="" />
-                            <a href="#" id="continue-btn" class="button button-raised continueapp-btn" onclick="continue_btn()">Continue to app</a>
-                            <!-- <a href="people.html" data-context='{"title": "People", "people": ["Anas", "Parvez", "Mirza"]}' class="button button-raised">people</a> -->
-                            <!-- <a href="people.html?id=2" class="button button-raised">people</a> -->
+                            <!-- <img src="img/neon.png" class="ne_on" alt="" />
+                            <a href="#" id="continue-btn" class="button button-raised continueapp-btn" onclick="continue_btn()">Continue to app</a> -->
+                            <a href="#" class="button index_logo_container"><img src="img/logo.png" class="index_logo"></a>
+                            <a href="#" onclick="continue_btn_signin()" class="button button-raised pettato_btn_trans">SIGN IN</a>
+                            <a href="#" onclick="continue_btn_signup()" class="button button-raised pettato_btn_trans">SIGN UP</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Path for cordova js -->
     <script type="text/javascript" src="cordova.js"></script>
-    <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="./js/framework7.min.js"></script>
-    <!-- Path to jQuery -->
     <script type="text/javascript" src="./js/jquery-2.2.4.min.js"></script>
-    <!-- matialize tags -->
     <script type="text/javascript" src="./js/materialize-tags.js"></script>
-    <!-- Path to Locke -->
     <script type="text/javascript" src="./js/lockr.min.js"></script>
-    <!-- chart library initialized -->
     <script src="./js/highcharts.js"></script>
     <script src="./js/data.js"></script>
     <script src="./js/drilldown.js"></script>
     <script src="js/openfb.js"></script>
-    <!-- Path to your app js-->
     <script type="text/javascript" src="./js/my-app.js"></script>
     <script type="text/javascript" src="./js/util.js"></script>
 </body>
-
 </html>
