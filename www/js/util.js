@@ -259,7 +259,7 @@ function image_camera() {
 }
 
 function shopper_register_onSuccess(fileURL) {
-    myApp.showPreloader('uploading image');
+    myApp.showPreloader('uploading image '+fileURL);
     var uri = encodeURI(base_url + "/upload_user");
     var options = new FileUploadOptions();
     options.fileKey = "file";
@@ -274,9 +274,11 @@ function shopper_register_onSuccess(fileURL) {
 
 function shopper_register_onSuccess_file(res) {
     console.log('res: ' + j2s(res));
+    myApp.showPreloader(res);
     myApp.hidePreloader();
     if (res.responseCode == 200) {
         uploaded_image = res.response.replace(/\"/g, "");
+        myApp.showPreloader("ststus 200");
         image_from_device = uploaded_image;
         console.log('uploaded_image: ' + uploaded_image);
         // $('#shopper_register-profile_image').val(uploaded_image);
@@ -297,6 +299,7 @@ function shopper_register_onError_file(error) {
 
 function shopper_register_onFail(message) {
     console.log('Failed because: ' + message);
+    myApp.alert('Failed because: ' + message);
 }
 
 function profile_cover_image() {
@@ -330,7 +333,7 @@ function cover_image_onSuccess_file(res) {
     myApp.hidePreloader();
     if (res.responseCode == 200) {
         uploaded_image = res.response.replace(/\"/g, "");
-        // image_from_device = uploaded_image;
+        image_from_device = uploaded_image;
         myApp.confirm('Image uploaded. Are you sure?', 'Pettato', function() {
             $.ajax({
                 url: base_url+'/cover_image',
