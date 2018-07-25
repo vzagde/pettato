@@ -274,7 +274,7 @@ function shopper_register_onSuccess(fileURL) {
 
 function shopper_register_onSuccess_file(res) {
     console.log('res: ' + j2s(res));
-    myApp.alert(res.responseCode);
+    myApp.alert(j2s(res));
     myApp.hidePreloader();
     if (res.responseCode == 200) {
         myApp.alert(res.response);
