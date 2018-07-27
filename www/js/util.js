@@ -105,111 +105,119 @@ function goto_register(type) {
 
 
 function register_shopper() {
-    console.log(calendarDefault.value);
-    var name = $('#shopper_register-name').val().trim();
-    var username = $('#shopper_register-username').val().trim();
-    var email = $('#shopper_register-email').val().trim();
-    var password = $('#shopper_register-password').val().trim();
-    var confirm_password = $('#shopper_register-confirm_password').val().trim();
-    var city_id = $('#shopper_register-city_select').val();
-    var dob = $('#shopper_register-dob').val().trim();
+    // console.log(calendarDefault.value);
+    // var name = $('#shopper_register-name').val().trim();
+    // var username = $('#shopper_register-username').val().trim();
+    // var email = $('#shopper_register-email').val().trim();
+    // var password = $('#shopper_register-password').val().trim();
+    // var confirm_password = $('#shopper_register-confirm_password').val().trim();
+    // var city_id = $('#shopper_register-city_select').val();
+    // var dob = $('#shopper_register-dob').val().trim();
 
-    var profile_image = image_from_device.trim();
-    var phone = $('#shopper_register-phone').val().trim();
+    // var profile_image = image_from_device.trim();
+    // var phone = $('#shopper_register-phone').val().trim();
 
-    if (name == '') {
-        myApp.alert('Please provide name.');
-        return false;
-    }
-    if (email == '') {
-        myApp.alert('Please provide Email Id.');
-        return false;
-    }
-    if (!email.match(email_regex)) {
-        myApp.alert('Please provide valid Email Id.');
-        return false;
-    }
+    // if (name == '') {
+    //     myApp.alert('Please provide name.');
+    //     return false;
+    // }
+    // if (email == '') {
+    //     myApp.alert('Please provide Email Id.');
+    //     return false;
+    // }
+    // if (!email.match(email_regex)) {
+    //     myApp.alert('Please provide valid Email Id.');
+    //     return false;
+    // }
 
-    if (password == '') {
-        myApp.alert('Please enter Password.');
-        return false;
-    }
+    // if (password == '') {
+    //     myApp.alert('Please enter Password.');
+    //     return false;
+    // }
 
-    if (phone !== '') {
-        if (!phone.match(phone_regex)) {
-            myApp.alert('Please enter valid Phone Number.');
-            return false;
-        }
-    }
+    // if (phone !== '') {
+    //     if (!phone.match(phone_regex)) {
+    //         myApp.alert('Please enter valid Phone Number.');
+    //         return false;
+    //     }
+    // }
 
-    if (confirm_password == '') {
-        myApp.alert('Please confirm password.');
-        return false;
-    }
-    if (password!=confirm_password) {
-        myApp.alert('Password doen not match.');
-        return false;
-    }
+    // if (confirm_password == '') {
+    //     myApp.alert('Please confirm password.');
+    //     return false;
+    // }
+    // if (password!=confirm_password) {
+    //     myApp.alert('Password doen not match.');
+    //     return false;
+    // }
 
-    if (city_id == '') {
-        myApp.alert('Please provide city.');
-        return false;
-    }
+    // if (city_id == '') {
+    //     myApp.alert('Please provide city.');
+    //     return false;
+    // }
 
-    if (dob == '') {
-        myApp.alert('Please enter date of birth.');
-        return false;
-    }
+    // if (dob == '') {
+    //     myApp.alert('Please enter date of birth.');
+    //     return false;
+    // }
 
-    if (profile_image == '') {
-        myApp.alert('Please upload profile image.');
-        return false;
-    }
+    // if (profile_image == '') {
+    //     myApp.alert('Please upload profile image.');
+    //     return false;
+    // }
 
-    myApp.showIndicator();
-    $.ajax({
-        url: base_url + 'create_user',
-        type: 'POST',
-        dataType: 'json',
-        crossDomain: true,
-        data: {
-            username: username,
-            email:email,
-            first_name: name,
-            password: password,
-            city_id: city_id,
-            dob: dob,
-            image: profile_image,
-            medium: 'register',
-            user_type: 'User',
-            phone: phone,
+    // myApp.showIndicator();
+    // $.ajax({
+    //     url: base_url + 'create_user',
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     crossDomain: true,
+    //     data: {
+    //         username: username,
+    //         email:email,
+    //         first_name: name,
+    //         password: password,
+    //         city_id: city_id,
+    //         dob: dob,
+    //         image: profile_image,
+    //         medium: 'register',
+    //         user_type: 'User',
+    //         phone: phone,
+    //     },
+    // })
+    // .done(function(res) {
+    //     console.log("success: " + j2s(res));
+    //     myApp.hideIndicator();
+    //     if (res.status == 'success') {
+    //         Lockr.set('token', res.data.user_id);
+    //         token = res.data.user_id;
+    //         user_data = res.data;
+    //         mainView.router.load({
+    //             url: 'feeds.html',
+    //             ignoreCache: false,
+    //             query: {
+    //                 register: true
+    //             },
+    //         });
+    //     } else {
+    //         myApp.alert('Email or Password mismatch');
+    //     }
+    // })
+    // .fail(function(err) {
+    //     myApp.hideIndicator();
+    //     console.log("error: " + j2s(err));
+    //     // myApp.alert("error: "+j2s(err));
+    // })
+    // .always(function() {
+    //     console.log("complete");
+    // });
+
+    mainView.router.load({
+        url: 'profile_shopper.html',
+        ignoreCache: false,
+        query: {
+            register: true
         },
-    })
-    .done(function(res) {
-        console.log("success: " + j2s(res));
-        myApp.hideIndicator();
-        if (res.status == 'success') {
-            Lockr.set('token', res.data.user_id);
-            token = res.data.user_id;
-            user_data = res.data;
-            mainView.router.load({
-                url: 'feeds.html',
-                ignoreCache: false,
-                query: {
-                    register: true
-                },
-            });
-        } else {
-            myApp.alert('Email or Password mismatch');
-        }
-    })
-    .fail(function(err) {
-        myApp.hideIndicator();
-        console.log("error: " + j2s(err));
-        // myApp.alert("error: "+j2s(err));
-    })
-    .always(function() {
-        console.log("complete");
     });
 }
 
@@ -1914,96 +1922,96 @@ function load_shopper_profile(user_id) {
     //gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "shopper_profile", "view", user_id, parseInt(token));
     console.log('user_id: ' + user_id);
     console.log('token: ' + token);
-    $('.follow_block').hide();
-    $.ajax({
-        url: base_url + 'get_user_profile',
-        type: 'POST',
-        dataType: 'json',
-        crossDomain: true,
-        data: {
-            my_id: token,
-            user_id: user_id,
-        },
-    })
-    .done(function(res) {
-        console.log("success: " + j2s(res));
-        if (res.status == 'success') {
-            var image = '';
-            if (res.data.medium == 'register') {
-                image = image_url + res.data.image;
-            } else {
-                image = res.data.image;
-            }
-            $('.cover_image').attr('src', image_url + res.data.cover_profile);
-            $('.profie_image').attr('src', image);
+    // $('.follow_block').hide();
+    // $.ajax({
+    //     url: base_url + 'get_user_profile',
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     crossDomain: true,
+    //     data: {
+    //         my_id: token,
+    //         user_id: user_id,
+    //     },
+    // })
+    // .done(function(res) {
+    //     console.log("success: " + j2s(res));
+    //     if (res.status == 'success') {
+    //         var image = '';
+    //         if (res.data.medium == 'register') {
+    //             image = image_url + res.data.image;
+    //         } else {
+    //             image = res.data.image;
+    //         }
+    //         $('.cover_image').attr('src', image_url + res.data.cover_profile);
+    //         $('.profie_image').attr('src', image);
 
-            /*
-            *   visitor or self view of profile
-            */
-            if (parseInt(user_id) != parseInt(token)) {
-                // vstr
-                $('.follow_block').show();
-                $('.cover_image_btn').hide();
-                $('.user_status').hide();
+    //         /*
+    //         *   visitor or self view of profile
+    //         */
+    //         if (parseInt(user_id) != parseInt(token)) {
+    //             // vstr
+    //             $('.follow_block').show();
+    //             $('.cover_image_btn').hide();
+    //             $('.user_status').hide();
 
-                if (res.follow_status == 'unfollow') {
-                    $('.unfollow').show();
-                    $('.follow').hide();
-                } else {
-                    $('.unfollow').hide();
-                    $('.follow').show();
-                }
-            } else {
-                // me
-                $('.follow_block').hide();  
-                $('.cover_image_btn').show();
-                $('.status_me').change(function(event) {
-                    status_update($(this).val());
-                });
-            }
+    //             if (res.follow_status == 'unfollow') {
+    //                 $('.unfollow').show();
+    //                 $('.follow').hide();
+    //             } else {
+    //                 $('.unfollow').hide();
+    //                 $('.follow').show();
+    //             }
+    //         } else {
+    //             // me
+    //             $('.follow_block').hide();  
+    //             $('.cover_image_btn').show();
+    //             $('.status_me').change(function(event) {
+    //                 status_update($(this).val());
+    //             });
+    //         }
 
-            $('.status_vstr').text(res.data.status);
-            $('.status_me').val(res.data.status);
+    //         $('.status_vstr').text(res.data.status);
+    //         $('.status_me').val(res.data.status);
 
-            if (res.data.status == '') {
-                $('.status').text('');
-            } else {
-                $('.status').text(res.data.status);
-            }
+    //         if (res.data.status == '') {
+    //             $('.status').text('');
+    //         } else {
+    //             $('.status').text(res.data.status);
+    //         }
 
-            $('.followers').text(res.followers);
-            $('.followings').text(res.followings);
+    //         $('.followers').text(res.followers);
+    //         $('.followings').text(res.followings);
 
-            $('.chat').click(function(event) {
-                goto_single_chat(res.data.id);
-            });
+    //         $('.chat').click(function(event) {
+    //             goto_single_chat(res.data.id);
+    //         });
 
-            $('.follow').click(function(event) {
-                follow(res.data.id);
-            });
+    //         $('.follow').click(function(event) {
+    //             follow(res.data.id);
+    //         });
 
-            $('.unfollow').click(function(event) {
-                unfollow(res.data.id);
-            });
+    //         $('.unfollow').click(function(event) {
+    //             unfollow(res.data.id);
+    //         });
 
-            $('.p_name').text(res.data.first_name);
+    //         $('.p_name').text(res.data.first_name);
 
-            var feeds = '';
-            $.each(res.feeds, function(index, val) {
-                feeds+= 
-                '<div class="own_feed">'+
-                    '<a href="feed.html?id='+val.id+'"><img src="'+image_url+val.image+'" class="wdh" alt="" /></a>'+
-                '</div>';
-            });
-            $('.profile-feed-container').html(feeds);
-        }
-    })
-    .fail(function(err) {
-        console.log("error: " + j2s(err));
-    })
-    .always(function() {
-        console.log("complete");
-    });
+    //         var feeds = '';
+    //         $.each(res.feeds, function(index, val) {
+    //             feeds+= 
+    //             '<div class="own_feed">'+
+    //                 '<a href="feed.html?id='+val.id+'"><img src="'+image_url+val.image+'" class="wdh" alt="" /></a>'+
+    //             '</div>';
+    //         });
+    //         $('.profile-feed-container').html(feeds);
+    //     }
+    // })
+    // .fail(function(err) {
+    //     console.log("error: " + j2s(err));
+    // })
+    // .always(function() {
+    //     console.log("complete");
+    // });
 }
 
 function goto_single_chat(id) {

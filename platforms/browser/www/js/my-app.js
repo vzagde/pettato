@@ -231,10 +231,11 @@ myApp.onPageInit('profile_shopper', function(page) {
     clearInterval(new_comment_interval);
     clearInterval(new_chat_interval);
     image_from_device = '';
-    bottom_tabs();
+    // bottom_tabs();
     var user_id = page.query.id;
     console.log('user_id: ' + user_id);
-    load_shopper_profile(user_id);
+    $('.unfollow').hide();
+    // load_shopper_profile(user_id);
 });
 
 myApp.onPageInit('profile_business', function(page) {
