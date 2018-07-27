@@ -240,26 +240,23 @@ myApp.onPageInit('profile_shopper', function(page) {
 myApp.onPageInit('profile_business', function(page) {
     myApp.allowPanelOpen = true;
     image_from_device = '';
-    bottom_tabs();
+    // bottom_tabs();
     var user_id = page.query.id;
     console.log('user_id: ' + user_id);
-    load_business_profile(user_id);
+    $('.unfollow').hide();
+    // load_business_profile(user_id);
 	
-	$('.chrt_bx').click(function(){
-		
-		var $minHeight = 1;
-		var el = $('.chart_box');
-		
-		curHeight = el.height(),
-		autoHeight = el.css('height', 'auto').height();
-		
-		if ( curHeight < $minHeight) {
-			el.height(curHeight).animate({height: autoHeight}, 500);
-		}else{
-			el.animate({ "height": "0" }, 500);
-		}
-	
-	});
+	// $('.chrt_bx').click(function(){
+	// 	var $minHeight = 1;
+	// 	var el = $('.chart_box');
+	// 	curHeight = el.height(),
+	// 	autoHeight = el.css('height', 'auto').height();
+	// 	if ( curHeight < $minHeight) {
+	// 		el.height(curHeight).animate({height: autoHeight}, 500);
+	// 	}else{
+	// 		el.animate({ "height": "0" }, 500);
+	// 	}
+	// });
 	
 	
 });

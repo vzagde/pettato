@@ -551,8 +551,10 @@
 }
 
 .pro_file_icons{
-    display:inline-block;
-    margin:4.5%;
+    display: inline-block;
+    margin: 0 auto;
+    width: 32%;
+    text-align: center;
 }
 
 .pro_file_icons p{

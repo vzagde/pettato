@@ -14,7 +14,7 @@ function continue_btn_signup() {
     if (!token == false) {
         myApp.showIndicator();
         $.ajax({
-            url: base_url + '/get_user',
+            url: base_url + 'get_user',
             type: 'POST',
             crossDomain: true,
             async: false,
@@ -53,7 +53,7 @@ function continue_btn_signin() {
     if (!token == false) {
         myApp.showIndicator();
         $.ajax({
-            url: base_url + '/get_user',
+            url: base_url + 'get_user',
             type: 'POST',
             crossDomain: true,
             async: false,
@@ -387,7 +387,7 @@ function login() {
 
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/login',
+        url: base_url + 'login',
         type: 'POST',
         crossDomain: true,
         data: {
@@ -493,7 +493,7 @@ function update_shopper_profile() {
 
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/update_user',
+        url: base_url + 'update_user',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -533,126 +533,133 @@ function update_shopper_profile() {
 }
 
 function register_business() {
-    console.log('shopper_register');
-    var name = $('#business_register-name').val().trim();
-    var email = $('#business_register-email').val().trim();
-    var password = $('#business_register-password').val().trim();
-    var confirm_password = $('#business_register-confirm_password').val().trim();
-    var city_id = $('#business_register-city_select').val().trim();
-    var location_id = $('#business_register-location_select').val();
-    // var gender = $('.business_register-gender:checked').val();
-    var gender = $('input[name=business_register-gender]:checked').val();
-    var business_name = $('#business_register-buissness').val().trim();
-    var category = $('#business_register-category').val();
-    var business_category = '';
-    // var profile_image = $('#shopper_register-profile_image').val().trim();
-    var profile_image = image_from_device.trim();
-    var phone = $('#business_register-phone').val().trim();
+    // console.log('shopper_register');
+    // var name = $('#business_register-name').val().trim();
+    // var email = $('#business_register-email').val().trim();
+    // var password = $('#business_register-password').val().trim();
+    // var confirm_password = $('#business_register-confirm_password').val().trim();
+    // var city_id = $('#business_register-city_select').val().trim();
+    // var location_id = $('#business_register-location_select').val();
+    // // var gender = $('.business_register-gender:checked').val();
+    // var gender = $('input[name=business_register-gender]:checked').val();
+    // var business_name = $('#business_register-buissness').val().trim();
+    // var category = $('#business_register-category').val();
+    // var business_category = '';
+    // // var profile_image = $('#shopper_register-profile_image').val().trim();
+    // var profile_image = image_from_device.trim();
+    // var phone = $('#business_register-phone').val().trim();
 
-    if (name == '') {
-        myApp.alert('Please provide name.');
-        return false;
-    }
-    if (business_name == '') {
-        myApp.alert('Please provide business name.');
-        return false;
-    }
-    if (!category) {
-        myApp.alert('Please select category.');
-        return false;
-    }
-    if (email == '') {
-        myApp.alert('Please provide email id.');
-        return false;
-    }
-    if (!phone.match(phone_regex)) {
-        myApp.alert('Please enter valid phone number.');
-        return false;
-    }
-    if (!email.match(email_regex)) {
-        myApp.alert('Please provide valid email id.');
-        return false;
-    }
-    if (password == '') {
-        myApp.alert('Please provide password.');
-        return false;
-    }
-    if (confirm_password == '') {
-        myApp.alert('Please confirm password.');
-        return false;
-    }
-    if (!password == confirm_password) {
-        myApp.alert('Password mismatch.');
-        return false;
-    }
-    if (city_id == '') {
-        myApp.alert('Please provide city.');
-        return false;
-    }
-    if (!location_id) {
-        myApp.alert('Please provide location.');
-        return false;
-    }
-    if (!gender) {
-        myApp.alert('Please select gender.');
-        return false;
-    }
-    if (profile_image == '') {
-        myApp.alert('Please upload profile image.');
-        return false;
-    }
+    // if (name == '') {
+    //     myApp.alert('Please provide name.');
+    //     return false;
+    // }
+    // if (business_name == '') {
+    //     myApp.alert('Please provide business name.');
+    //     return false;
+    // }
+    // if (!category) {
+    //     myApp.alert('Please select category.');
+    //     return false;
+    // }
+    // if (email == '') {
+    //     myApp.alert('Please provide email id.');
+    //     return false;
+    // }
+    // if (!phone.match(phone_regex)) {
+    //     myApp.alert('Please enter valid phone number.');
+    //     return false;
+    // }
+    // if (!email.match(email_regex)) {
+    //     myApp.alert('Please provide valid email id.');
+    //     return false;
+    // }
+    // if (password == '') {
+    //     myApp.alert('Please provide password.');
+    //     return false;
+    // }
+    // if (confirm_password == '') {
+    //     myApp.alert('Please confirm password.');
+    //     return false;
+    // }
+    // if (!password == confirm_password) {
+    //     myApp.alert('Password mismatch.');
+    //     return false;
+    // }
+    // if (city_id == '') {
+    //     myApp.alert('Please provide city.');
+    //     return false;
+    // }
+    // if (!location_id) {
+    //     myApp.alert('Please provide location.');
+    //     return false;
+    // }
+    // if (!gender) {
+    //     myApp.alert('Please select gender.');
+    //     return false;
+    // }
+    // if (profile_image == '') {
+    //     myApp.alert('Please upload profile image.');
+    //     return false;
+    // }
 
-    $.each(category, function(index, val) {
-        business_category += val + ',';
-    });
-    business_category = business_category.slice(0, -1);
+    // $.each(category, function(index, val) {
+    //     business_category += val + ',';
+    // });
+    // business_category = business_category.slice(0, -1);
 
-    myApp.showIndicator();
-    $.ajax({
-        url: base_url + '/create_user',
-        type: 'POST',
-        dataType: 'json',
-        crossDomain: true,
-        data: {
-            identity: email,
-            username: email,
-            first_name: name,
-            password: password,
-            city_id: city_id,
-            location_id: location_id,
-            gender: gender,
-            image: profile_image,
-            medium: 'register',
-            user_type: 'Business',
-            bussiness_name: business_name,
-            bussiness_category_id: business_category,
-            phone: phone,
+    // myApp.showIndicator();
+    // $.ajax({
+    //     url: base_url + 'create_user',
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     crossDomain: true,
+    //     data: {
+    //         identity: email,
+    //         username: email,
+    //         first_name: name,
+    //         password: password,
+    //         city_id: city_id,
+    //         location_id: location_id,
+    //         gender: gender,
+    //         image: profile_image,
+    //         medium: 'register',
+    //         user_type: 'Business',
+    //         bussiness_name: business_name,
+    //         bussiness_category_id: business_category,
+    //         phone: phone,
+    //     },
+    // })
+    // .done(function(res) {
+    //     console.log("success: " + j2s(res));
+    //     myApp.hideIndicator();
+    //     if (res.status == 'success') {
+    //         Lockr.set('token', res.data.user_id);
+    //         token = res.data.user_id;
+    //         user_data = res.data;
+    //         mainView.router.load({
+    //             url: 'feeds.html',
+    //             ignoreCache: false,
+    //             query: {
+    //                 register: true
+    //             },
+    //         });
+    //     } else {
+    //         myApp.alert('Email or Password mismatch');
+    //     }
+    // })
+    // .fail(function(err) {
+    //     console.log("error: " + j2s(err));
+    //     myApp.alert("error: " + j2s(err));
+    // })
+    // .always(function() {
+    //     console.log("complete");
+    // });
+    mainView.router.load({
+        url: 'profile_business.html',
+        ignoreCache: false,
+        query: {
+            register: true
         },
-    })
-    .done(function(res) {
-        console.log("success: " + j2s(res));
-        myApp.hideIndicator();
-        if (res.status == 'success') {
-            Lockr.set('token', res.data.user_id);
-            token = res.data.user_id;
-            user_data = res.data;
-            mainView.router.load({
-                url: 'feeds.html',
-                ignoreCache: false,
-                query: {
-                    register: true
-                },
-            });
-        } else {
-            myApp.alert('Email or Password mismatch');
-        }
-    })
-    .fail(function(err) {
-        console.log("error: " + j2s(err));
-        myApp.alert("error: " + j2s(err));
-    })
-    .always(function() {
-        console.log("complete");
     });
 }
 
@@ -718,7 +725,7 @@ function edit_profile_business() {
 
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/update_user',
+        url: base_url + 'update_user',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -802,7 +809,7 @@ function load_location_after_city_load_for_edit_profile_business() {
 function load_edit_profile_shopper() {
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/get_user',
+        url: base_url + 'get_user',
         type: 'POST',
         crossDomain: true,
         async: false,
@@ -849,7 +856,7 @@ function load_edit_profile_shopper() {
 function load_edit_profile_business() {
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/get_user',
+        url: base_url + 'get_user',
         type: 'POST',
         crossDomain: true,
         data: {
@@ -901,7 +908,7 @@ function set_category_business_edit() {
 function load_location(selector, city_id, callback) {
     console.log('city-id: '+city_id);
     $.ajax({
-        url: base_url + '/get_location',
+        url: base_url + 'get_location',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -930,7 +937,7 @@ function load_location(selector, city_id, callback) {
 
 function load_location_all(selector) {
     $.ajax({
-        url: base_url + '/get_location_master',
+        url: base_url + 'get_location_master',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -957,7 +964,7 @@ function load_location_all(selector) {
 function load_buzzs_offers(type, selector) {
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/buzzs_offers',
+        url: base_url + 'buzzs_offers',
         type: 'POST',
         data: {
             user_id: token,
@@ -1047,7 +1054,7 @@ function load_buzz_offer(type, id) {
     //gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "single_"+type, "view", id, parseInt(token));
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/buzz_offer',
+        url: base_url + 'buzz_offer',
         type: 'POST',
         data: {
             id: id,
@@ -1155,7 +1162,7 @@ function load_feeds() {
     }
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/feeds',
+        url: base_url + 'feeds',
         type: 'POST',
         data: {
             user_id: token,
@@ -1248,7 +1255,7 @@ function load_feed(id) {
     //gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "single_feed", "view", id, parseInt(token));
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/feed',
+        url: base_url + 'feed',
         type: 'POST',
         data: {
             user_id: token,
@@ -1315,7 +1322,7 @@ function load_feed(id) {
 
 function load_comments(type, id) {
     $.ajax({
-        url: base_url + '/comments',
+        url: base_url + 'comments',
         type: 'POST',
         data: {
             user_id: token,
@@ -1395,7 +1402,7 @@ function load_comments(type, id) {
 function load_new_comments() {
     // console.log('new_comments: '+type+id+time);
     $.ajax({
-        url: base_url + '/new_comments',
+        url: base_url + 'new_comments',
         type: 'POST',
         crossDomain: true,
         data: {
@@ -1533,7 +1540,7 @@ function add_comment(type, type_id, comment) {
     });
 
     $.ajax({
-        url: base_url + '/add_comment',
+        url: base_url + 'add_comment',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -1582,7 +1589,7 @@ function add_feed() {
 
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/create_feed',
+        url: base_url + 'create_feed',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -1648,7 +1655,7 @@ function add_buzz_offer(type) {
 
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/create_buzz_offer',
+        url: base_url + 'create_buzz_offer',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -1687,7 +1694,7 @@ function add_buzz_offer(type) {
 function load_notification() {
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/notifications',
+        url: base_url + 'notifications',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -1909,7 +1916,7 @@ function load_shopper_profile(user_id) {
     console.log('token: ' + token);
     $('.follow_block').hide();
     $.ajax({
-        url: base_url + '/get_user_profile',
+        url: base_url + 'get_user_profile',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -2035,130 +2042,130 @@ function load_business_profile(user_id) {
     console.log('user_id: ' + user_id);
     console.log('token: ' + token);
     $('.follow_block').hide();
-    $.ajax({
-        url: base_url + '/get_user_profile',
-        type: 'POST',
-        dataType: 'json',
-        crossDomain: true,
-        data: {
-            my_id: token,
-            user_id: user_id,
-        },
-    })
-    .done(function(res) {
-        console.log("success: " + j2s(res));
-        if (res.status == 'success') {
-            var image = '';
-            if (res.data.medium == 'register') {
-                image = image_url + res.data.image;
-            } else {
-                image = res.data.image;
-            }
+    // $.ajax({
+    //     url: base_url + 'get_user_profile',
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     crossDomain: true,
+    //     data: {
+    //         my_id: token,
+    //         user_id: user_id,
+    //     },
+    // })
+    // .done(function(res) {
+    //     console.log("success: " + j2s(res));
+    //     if (res.status == 'success') {
+    //         var image = '';
+    //         if (res.data.medium == 'register') {
+    //             image = image_url + res.data.image;
+    //         } else {
+    //             image = res.data.image;
+    //         }
 
-            $('.cover_image').attr('src', image_url + res.data.cover_profile);
-            $('.profie_image').attr('src', image);
+    //         $('.cover_image').attr('src', image_url + res.data.cover_profile);
+    //         $('.profie_image').attr('src', image);
 
-            if (parseInt(user_id) != parseInt(token)) {
-                console.log('vsts');
-                $('.follow_block').show();
-                $('.cover_image_btn').hide();
+    //         if (parseInt(user_id) != parseInt(token)) {
+    //             console.log('vsts');
+    //             $('.follow_block').show();
+    //             $('.cover_image_btn').hide();
 
-                if (res.follow_status == 'unfollow') {
-                    $('.unfollow').show();
-                    $('.follow').hide();
-                } else {
-                    $('.unfollow').hide();
-                    $('.follow').show();
-                }
-            } else {
-                console.log('me');
-                $('.follow_block').hide();
-                $('.cover_image_btn').show();
-            }
+    //             if (res.follow_status == 'unfollow') {
+    //                 $('.unfollow').show();
+    //                 $('.follow').hide();
+    //             } else {
+    //                 $('.unfollow').hide();
+    //                 $('.follow').show();
+    //             }
+    //         } else {
+    //             console.log('me');
+    //             $('.follow_block').hide();
+    //             $('.cover_image_btn').show();
+    //         }
 
-            $('.chat').click(function(event) {
-                goto_single_chat(res.data.id);
-            });
+    //         $('.chat').click(function(event) {
+    //             goto_single_chat(res.data.id);
+    //         });
 
-            $('.call').click(function(event) {
-                dial_number(res.data.phone);
-            });
+    //         $('.call').click(function(event) {
+    //             dial_number(res.data.phone);
+    //         });
 
-            $('.p_name').text(res.data.first_name);
-            $('.p_name1').text(res.data.bussiness_name);
+    //         $('.p_name').text(res.data.first_name);
+    //         $('.p_name1').text(res.data.bussiness_name);
 
-            if (res.data.status == '') {
-                $('.status').text('');
-            } else {
-                $('.status').text(res.data.status);
-            }
-            $('.followers').text(res.followers);
-            $('.followings').text(res.followings);
+    //         if (res.data.status == '') {
+    //             $('.status').text('');
+    //         } else {
+    //             $('.status').text(res.data.status);
+    //         }
+    //         $('.followers').text(res.followers);
+    //         $('.followings').text(res.followings);
 
-            $('.follow').click(function(event) {
-                follow(res.data.id);
-            });
+    //         $('.follow').click(function(event) {
+    //             follow(res.data.id);
+    //         });
 
-            $('.unfollow').click(function(event) {
-                unfollow(res.data.id);
-            });
+    //         $('.unfollow').click(function(event) {
+    //             unfollow(res.data.id);
+    //         });
 
-            columns = res.columns;
-            series = res.series;
+    //         columns = res.columns;
+    //         series = res.series;
 
-            $('.chart_container').highcharts({
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Monthly Follow'
-                },
-                subtitle: {
-                    text: 'Brand Stats'
-                },
-                xAxis: {
-                    categories: columns,
-                    crosshair: true
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'No. of follows'
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} follows</b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                series: series,
-            });
+    //         $('.chart_container').highcharts({
+    //             chart: {
+    //                 type: 'column'
+    //             },
+    //             title: {
+    //                 text: 'Monthly Follow'
+    //             },
+    //             subtitle: {
+    //                 text: 'Brand Stats'
+    //             },
+    //             xAxis: {
+    //                 categories: columns,
+    //                 crosshair: true
+    //             },
+    //             yAxis: {
+    //                 min: 0,
+    //                 title: {
+    //                     text: 'No. of follows'
+    //                 }
+    //             },
+    //             tooltip: {
+    //                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+    //                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+    //             '<td style="padding:0"><b>{point.y:.1f} follows</b></td></tr>',
+    //                 footerFormat: '</table>',
+    //                 shared: true,
+    //                 useHTML: true
+    //             },
+    //             plotOptions: {
+    //                 column: {
+    //                     pointPadding: 0.2,
+    //                     borderWidth: 0
+    //                 }
+    //             },
+    //             series: series,
+    //         });
 
-            var feeds = '';
-            $.each(res.feeds, function(index, val) {
-                feeds+= 
-                '<div class="own_feed">'+
-                    '<a href="feed.html?id='+val.id+'"><img src="'+image_url+val.image+'" class="wdh" alt="" /></a>'+
-                '</div>';
-            });
-            $('.profile-feed-container').html(feeds);
-        }
-    })
-    .fail(function(err) {
-        console.log("error: " + j2s(err));
-    })
-    .always(function() {
-        console.log("complete");
-    });
+    //         var feeds = '';
+    //         $.each(res.feeds, function(index, val) {
+    //             feeds+= 
+    //             '<div class="own_feed">'+
+    //                 '<a href="feed.html?id='+val.id+'"><img src="'+image_url+val.image+'" class="wdh" alt="" /></a>'+
+    //             '</div>';
+    //         });
+    //         $('.profile-feed-container').html(feeds);
+    //     }
+    // })
+    // .fail(function(err) {
+    //     console.log("error: " + j2s(err));
+    // })
+    // .always(function() {
+    //     console.log("complete");
+    // });
 }
 
 function dial_number(phone) {
@@ -2168,7 +2175,7 @@ function dial_number(phone) {
 function follow(id_to_follow) {
     console.log('id: ' + id_to_follow);
     $.ajax({
-            url: base_url + '/follow',
+            url: base_url + 'follow',
             type: 'POST',
             dataType: 'json',
             crossDomain: true,
@@ -2195,7 +2202,7 @@ function follow(id_to_follow) {
 function unfollow(id_to_unfollow) {
     console.log('id: ' + id_to_unfollow);
     $.ajax({
-        url: base_url + '/unfollow',
+        url: base_url + 'unfollow',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -2248,7 +2255,7 @@ function like(id, type, me) {
 
     // console.log('like: '+id+type);
     $.ajax({
-        url: base_url + '/like',
+        url: base_url + 'like',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -2274,7 +2281,7 @@ function remove_me(id, type, me) {
     console.log('remove: ' + id + type);
     $(me).parent().parent().remove();
     $.ajax({
-        url: base_url + '/remove_me',
+        url: base_url + 'remove_me',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -2308,7 +2315,7 @@ function forgot_password() {
     }
 
     $.ajax({
-        url: base_url + '/forgot_password',
+        url: base_url + 'forgot_password',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -2335,7 +2342,7 @@ function forgot_password() {
 function load_category(selector, afterCallback) {
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/get_category',
+        url: base_url + 'get_category',
         type: 'POST',
         crossDomain: true,
         async: false,
@@ -2344,14 +2351,15 @@ function load_category(selector, afterCallback) {
     .done(function(res) {
         console.log('res: ' + j2s(res));
         myApp.hideIndicator();
-        if (res.status == 'success') {
+        if (res.status == 'Success') {
             var html = '';
-            $.each(res.data, function(index, val) {
-                html += '<option value="' + val.id + '" >' + val.name + '</option>';
+            $.each(res.response, function(index, val) {
+                html += '<option value="' + val.id + '" >' + val.category_name + '</option>';
             });
             $(selector).html(html);
             afterCallback();
-        } else {}
+        } else {
+        }
     })
     .fail(function(err) {
         myApp.hideIndicator();
@@ -2669,7 +2677,7 @@ function send_chat() {
     });
 
     $.ajax({
-        url: base_url + '/save_chat',
+        url: base_url + 'save_chat',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -2716,7 +2724,7 @@ function login_via_fb(data) {
 
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/create_user',
+        url: base_url + 'create_user',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
@@ -2753,7 +2761,7 @@ function login_via_fb(data) {
 
     myApp.showIndicator();
     $.ajax({
-        url: base_url + '/facebook_login',
+        url: base_url + 'facebook_login',
         type: 'POST',
         crossDomain: true,
         data: {
