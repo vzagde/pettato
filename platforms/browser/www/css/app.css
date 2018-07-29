@@ -36,6 +36,10 @@
     top: initial !important;
 }
 
+.textupper {
+    text-transform: uppercase;
+}
+
 .comment_box {
     position: fixed;
     width: 100%;
@@ -257,14 +261,15 @@
 }
 
 .pro_pic1{
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     border-radius: 30px;
     overflow: hidden;
     margin-top: -38px;
-    margin-left: 3%;
+    margin-left: 10%;
     z-index: 99999;
     background: #000;
+    border: 3px solid #fff;
 }
 
 .pro_pic1 img{
@@ -523,13 +528,9 @@
 }
 
 .p_name{
-    position: relative;
-    left: 0;
-    right: 0;
-    top: -25px;
-    font-size:1.2em;
-    text-align:center !important;
-    margin:0;
+    font-size: 1.4em;
+    text-align: left;
+    padding: 0 10%;
 }
 
 .p_name1{
@@ -544,9 +545,9 @@
 
 .user_blk{
     width: 95% !important;
-    margin-bottom: 4% !important;
+    margin: 7% auto !important;
     margin: 0 auto;
-    color:rgba(0,0,0,0.71) !important;
+    color: rgba(0,0,0,0.51) !important;
     top:0 !important;
 }
 
@@ -590,10 +591,8 @@
 
 .user_own_feed{
     width: 100%;
-    margin: 12% 0 !important;
     font-size: 1.2em;
     text-align: center;
-    border-top: 1px solid;
 }
 
 /* .own_feed{
@@ -603,15 +602,21 @@
     overflow:hidden;
 } */
 
+.follow_block a {
+    color: #fff;
+    background: #489c2d;
+    border-radius: 5px; 
+    float: right;
+    width: 100%;
+    margin: 5% 10% 0 0;
+}
 .bee{
     width:35%;
 }
 
 .own_feed {
-    width: 30%;
-    height: 85px;
-    margin: 0 1%;
-    display: inline-block;
+    height: auto;
+    padding: 0 5px;
     overflow: hidden;
 }
 
