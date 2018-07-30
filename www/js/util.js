@@ -162,10 +162,10 @@ function register_shopper() {
         return false;
     }
 
-    if (profile_image == '') {
-        myApp.alert('Please upload profile image.');
-        return false;
-    }
+    // if (profile_image == '') {
+    //     myApp.alert('Please upload profile image.');
+    //     return false;
+    // }
 
     myApp.showIndicator();
     $.ajax({
