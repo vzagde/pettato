@@ -104,7 +104,6 @@ function goto_register(type) {
 }
 
 function register_shopper() {
-    // console.log(calendarDefault.value);
     var name = $('#shopper_register-name').val().trim();
     var username = $('#shopper_register-username').val().trim();
     var email = $('#shopper_register-email').val().trim();
@@ -114,7 +113,7 @@ function register_shopper() {
     var address = $('#shopper_register-address').val().trim();
     var phone = $('#shopper_register-phone').val().trim();
     var profile_image = image_from_device.trim();
-    // var dob = $('#shopper_register-dob').val().trim();
+    var dob = $('#shopper_register-dob').val().trim();
 
     if (name == '') {
         myApp.alert('Please provide name.');
@@ -158,13 +157,8 @@ function register_shopper() {
         return false;
     }
 
-    // if (dob == '') {
-    //     myApp.alert('Please enter date of birth.');
-    //     return false;
-    // }
-
-    if (profile_image == '') {
-        myApp.alert('Please upload profile image.');
+    if (dob == '') {
+        myApp.alert('Please enter date of birth.');
         return false;
     }
 
@@ -187,12 +181,11 @@ function register_shopper() {
             phone: phone,
         },
     }).done(function(res) {
-        console.log("success: " + j2s(res));
         myApp.hideIndicator();
         if (res.status == 'success') {
-            Lockr.set('token', res.data.user_id);
-            token = res.data.user_id;
-            user_data = res.data;
+            // Lockr.set('token', res.data.user_id);
+            // token = res.data.user_id;
+            // user_data = res.data;
             mainView.router.load({
                 url: 'profile_shopper.html',
                 ignoreCache: false,
@@ -201,22 +194,15 @@ function register_shopper() {
                 },
             });
         } else {
-            myApp.alert('Email or Password mismatch');
+            myApp.alert(res.api_msg);
         }
     }).fail(function(err) {
         myApp.hideIndicator();
+        myApp.alert('Some error occured while processing your request, Please try again later.');
         console.log("error: " + j2s(err));
     }).always(function() {
         console.log("complete");
     });
-
-    // mainView.router.load({
-    //     url: 'profile_shopper.html',
-    //     ignoreCache: false,
-    //     query: {
-    //         register: true
-    //     },
-    // });
 }
 
 
@@ -265,7 +251,6 @@ function image_camera() {
 }
 
 function shopper_register_onSuccess(fileURL) {
-    myApp.alert('uploading image '+fileURL);
     var uri = encodeURI(base_url + "upload_user");
     var options = new FileUploadOptions();
     options.fileKey = "file";
@@ -280,14 +265,11 @@ function shopper_register_onSuccess(fileURL) {
 
 function shopper_register_onSuccess_file(res) {
     console.log('res: ' + j2s(res));
-    myApp.alert(j2s(res));
     myApp.hidePreloader();
     if (res.responseCode == 200) {
-        myApp.alert(res.response);
         uploaded_image = res.response.replace(/\"/g, "");
         image_from_device = uploaded_image;
         console.log('uploaded_image: ' + uploaded_image);
-        myApp.alert(image_from_device);
         // $('#shopper_register-profile_image').val(uploaded_image);
         myApp.alert("Image Uploaded Successfully");
     } else {
@@ -323,7 +305,7 @@ function profile_cover_image() {
 
 function cover_image_onSuccess(fileURL) {
     myApp.showPreloader('uploading image');
-    var uri = encodeURI(base_url + "/upload_user");
+    var uri = encodeURI(base_url + "upload_user");
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
