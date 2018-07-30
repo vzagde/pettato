@@ -189,9 +189,9 @@ function register_shopper() {
         console.log("success: " + j2s(res));
         myApp.hideIndicator();
         if (res.status == 'success') {
-            Lockr.set('token', res.data.user_id);
-            token = res.data.user_id;
-            user_data = res.data;
+            // Lockr.set('token', res.data.user_id);
+            // token = res.data.user_id;
+            // user_data = res.data;
             mainView.router.load({
                 url: 'profile_shopper.html',
                 ignoreCache: false,
