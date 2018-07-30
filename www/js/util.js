@@ -104,7 +104,6 @@ function goto_register(type) {
 }
 
 function register_shopper() {
-    // console.log(calendarDefault.value);
     var name = $('#shopper_register-name').val().trim();
     var username = $('#shopper_register-username').val().trim();
     var email = $('#shopper_register-email').val().trim();
@@ -114,7 +113,7 @@ function register_shopper() {
     var address = $('#shopper_register-address').val().trim();
     var phone = $('#shopper_register-phone').val().trim();
     var profile_image = image_from_device.trim();
-    // var dob = $('#shopper_register-dob').val().trim();
+    var dob = $('#shopper_register-dob').val().trim();
 
     if (name == '') {
         myApp.alert('Please provide name.');
@@ -158,10 +157,10 @@ function register_shopper() {
         return false;
     }
 
-    // if (dob == '') {
-    //     myApp.alert('Please enter date of birth.');
-    //     return false;
-    // }
+    if (dob == '') {
+        myApp.alert('Please enter date of birth.');
+        return false;
+    }
 
     if (profile_image == '') {
         myApp.alert('Please upload profile image.');
