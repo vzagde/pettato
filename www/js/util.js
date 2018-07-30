@@ -187,8 +187,10 @@ function register_shopper() {
         },
     }).done(function(res) {
         console.log("success: " + j2s(res));
+        myApp.alert('Recieving response from Server');
         myApp.hideIndicator();
         if (res.status == 'success') {
+            myApp.alert('Account Created Successfully');
             // Lockr.set('token', res.data.user_id);
             // token = res.data.user_id;
             // user_data = res.data;
