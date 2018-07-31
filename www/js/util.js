@@ -2857,7 +2857,18 @@ function initialize() {
     google.maps.event.addListener(map, 'click', function (e) {
         lat = e.latLng.lat();
         lng = e.latLng.lng();
-        myApp.alert('Lat: '+lat+'Lng: '+lng);
+        geocoder.geocode({'location': {lat: lat, lng: lng}}, function (results, status) {
+          console.log(results);
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    myApp.alert(results[0].formatted_address);
+                } else {
+                    myApp.alert('No results found');
+                }
+            } else {
+                myApp.alert('Cound Fetch Address, Please Try and select nearest location.');
+            }
+        });
         initialize();
     });
 }
