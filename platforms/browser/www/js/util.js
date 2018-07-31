@@ -408,22 +408,18 @@ function login() {
 
 
 $(document).on('change','#shopper_register-dob',function(){
-
-    // console.log('working');
-
     var dob = $('#shopper_register-dob').val().trim();
     var date = dob;
     var parts = date.split("-");
     var y=parts[0];
-    var m=parts[1]; // 15
-    var date=parts[2]; // 2009
+    var m=parts[1];
+    var date=parts[2];
 
     var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
     var d = new Date(dob);
     var monthstring=monthNames[d.getMonth()];
     var dated= date + '-' + monthstring +'-'+ y;
 
-    console.log(dated);
     document.getElementById("shopper_register-dob").type = 'text';
     document.getElementById("shopper_register-dob").value = dated;
 })
@@ -521,134 +517,126 @@ function update_shopper_profile() {
 }
 
 function register_business() {
-    // console.log('shopper_register');
-    // var name = $('#business_register-name').val().trim();
-    // var email = $('#business_register-email').val().trim();
-    // var password = $('#business_register-password').val().trim();
-    // var confirm_password = $('#business_register-confirm_password').val().trim();
-    // var city_id = $('#business_register-city_select').val().trim();
-    // var location_id = $('#business_register-location_select').val();
-    // // var gender = $('.business_register-gender:checked').val();
-    // var gender = $('input[name=business_register-gender]:checked').val();
-    // var business_name = $('#business_register-buissness').val().trim();
-    // var category = $('#business_register-category').val();
-    // var business_category = '';
-    // // var profile_image = $('#shopper_register-profile_image').val().trim();
-    // var profile_image = image_from_device.trim();
-    // var phone = $('#business_register-phone').val().trim();
+    var name = $('#business_register-name').val().trim();
+    var email = $('#business_register-email').val().trim();
+    var password = $('#business_register-password').val().trim();
+    var confirm_password = $('#business_register-confirm_password').val().trim();
+    var city_id = $('#business_register-city_select').val().trim();
+    var location_id = $('#business_register-location_select').val();
+    var business_name = $('#business_register-buissness').val().trim();
+    var category = $('#business_register-category').val();
+    var business_category = '';
+    var profile_image = image_from_device.trim();
+    var phone = $('#business_register-phone').val().trim();
 
-    // if (name == '') {
-    //     myApp.alert('Please provide name.');
-    //     return false;
-    // }
-    // if (business_name == '') {
-    //     myApp.alert('Please provide business name.');
-    //     return false;
-    // }
-    // if (!category) {
-    //     myApp.alert('Please select category.');
-    //     return false;
-    // }
-    // if (email == '') {
-    //     myApp.alert('Please provide email id.');
-    //     return false;
-    // }
-    // if (!phone.match(phone_regex)) {
-    //     myApp.alert('Please enter valid phone number.');
-    //     return false;
-    // }
-    // if (!email.match(email_regex)) {
-    //     myApp.alert('Please provide valid email id.');
-    //     return false;
-    // }
-    // if (password == '') {
-    //     myApp.alert('Please provide password.');
-    //     return false;
-    // }
-    // if (confirm_password == '') {
-    //     myApp.alert('Please confirm password.');
-    //     return false;
-    // }
-    // if (!password == confirm_password) {
-    //     myApp.alert('Password mismatch.');
-    //     return false;
-    // }
-    // if (city_id == '') {
-    //     myApp.alert('Please provide city.');
-    //     return false;
-    // }
-    // if (!location_id) {
-    //     myApp.alert('Please provide location.');
-    //     return false;
-    // }
-    // if (!gender) {
-    //     myApp.alert('Please select gender.');
-    //     return false;
-    // }
-    // if (profile_image == '') {
-    //     myApp.alert('Please upload profile image.');
-    //     return false;
-    // }
+    if (name == '') {
+        myApp.alert('Please provide name.');
+        return false;
+    }
+    if (business_name == '') {
+        myApp.alert('Please provide business name.');
+        return false;
+    }
+    if (!category) {
+        myApp.alert('Please select category.');
+        return false;
+    }
+    if (email == '') {
+        myApp.alert('Please provide email id.');
+        return false;
+    }
+    if (!phone.match(phone_regex)) {
+        myApp.alert('Please enter valid phone number.');
+        return false;
+    }
+    if (!email.match(email_regex)) {
+        myApp.alert('Please provide valid email id.');
+        return false;
+    }
+    if (password == '') {
+        myApp.alert('Please provide password.');
+        return false;
+    }
+    if (confirm_password == '') {
+        myApp.alert('Please confirm password.');
+        return false;
+    }
+    if (!password == confirm_password) {
+        myApp.alert('Password mismatch.');
+        return false;
+    }
+    if (city_id == '') {
+        myApp.alert('Please provide city.');
+        return false;
+    }
+    if (!location_id) {
+        myApp.alert('Please provide location.');
+        return false;
+    }
+    if (!gender) {
+        myApp.alert('Please select gender.');
+        return false;
+    }
+    if (profile_image == '') {
+        myApp.alert('Please upload profile image.');
+        return false;
+    }
 
-    // $.each(category, function(index, val) {
-    //     business_category += val + ',';
-    // });
-    // business_category = business_category.slice(0, -1);
-
-    // myApp.showIndicator();
-    // $.ajax({
-    //     url: base_url + 'create_user',
-    //     type: 'POST',
-    //     dataType: 'json',
-    //     crossDomain: true,
-    //     data: {
-    //         identity: email,
-    //         username: email,
-    //         first_name: name,
-    //         password: password,
-    //         city_id: city_id,
-    //         location_id: location_id,
-    //         gender: gender,
-    //         image: profile_image,
-    //         medium: 'register',
-    //         user_type: 'Business',
-    //         bussiness_name: business_name,
-    //         bussiness_category_id: business_category,
-    //         phone: phone,
-    //     },
-    // })
-    // .done(function(res) {
-    //     console.log("success: " + j2s(res));
-    //     myApp.hideIndicator();
-    //     if (res.status == 'success') {
-    //         Lockr.set('token', res.data.user_id);
-    //         token = res.data.user_id;
-    //         user_data = res.data;
-    //         mainView.router.load({
-    //             url: 'feeds.html',
-    //             ignoreCache: false,
-    //             query: {
-    //                 register: true
-    //             },
-    //         });
-    //     } else {
-    //         myApp.alert('Email or Password mismatch');
-    //     }
-    // })
-    // .fail(function(err) {
-    //     console.log("error: " + j2s(err));
-    //     myApp.alert("error: " + j2s(err));
-    // })
-    // .always(function() {
-    //     console.log("complete");
-    // });
-    mainView.router.load({
-        url: 'profile_business.html',
-        ignoreCache: false,
-        query: {
-            register: true
-        },
+    $.each(category, function(index, val) {
+        business_category += val + ',';
     });
+
+    business_category = business_category.slice(0, -1);
+
+    myApp.showIndicator();
+    $.ajax({
+        url: base_url + 'create_user',
+        type: 'POST',
+        dataType: 'json',
+        crossDomain: true,
+        data: {
+            username: username,
+            email:email,
+            first_name: name,
+            password: password,
+            city_id: city_id,
+            dob: dob,
+            image: profile_image,
+            medium: 'register',
+            user_type: 'User',
+            phone: phone,
+        },
+    }).done(function(res) {
+        myApp.hideIndicator();
+        if (res.status == 'success') {
+            // Lockr.set('token', res.data.user_id);
+            // token = res.data.user_id;
+            // user_data = res.data;
+            mainView.router.load({
+                url: 'profile_shopper.html',
+                ignoreCache: false,
+                query: {
+                    register: true
+                },
+            });
+        } else {
+            myApp.alert(res.api_msg);
+        }
+    }).fail(function(err) {
+        myApp.hideIndicator();
+        myApp.alert('Some error occured while processing your request, Please try again later.');
+        console.log("error: " + j2s(err));
+    }).always(function() {
+        console.log("complete");
+    });
+
+    // mainView.router.load({
+    //     url: 'profile_business.html',
+    //     ignoreCache: false,
+    //     query: {
+    //         register: true
+    //     },
+    // });
 }
 
 function edit_profile_business() {
@@ -2837,3 +2825,39 @@ function nativePluginErrorHandler(error) {
     // alert('GA error: '+error);
 }
 
+
+function initialize() {
+    var mapOptions = {
+        center: new google.maps.LatLng('19.113645', '72.869734'),
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var infoWindow = new google.maps.InfoWindow();
+    var latlngbounds = new google.maps.LatLngBounds();
+
+    var map = new google.maps.Map(document.getElementById("mapCanvas"), mapOptions);
+
+    if (lat) {
+        if (lng) {
+            var myLatLng = {lat: lat, lng: lng};
+
+            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+                zoom: 17,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Business Location'
+            });
+        }
+    }
+    google.maps.event.addListener(map, 'click', function (e) {
+        lat = e.latLng.lat();
+        lng = e.latLng.lng();
+        myApp.alert('Lat: '+lat+'Lng: '+lng);
+        initialize();
+    });
+}

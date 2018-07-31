@@ -13,6 +13,7 @@ var email_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 var phone_regex = /^\d{10}$/;
 var image_from_device = '';
 
+var lat, lng;
 var time = '';
 
 var new_comment_interval = null;
@@ -209,6 +210,8 @@ myApp.onPageInit('business_register', function(page) {
     clearInterval(new_comment_interval);
     clearInterval(new_chat_interval);
     load_city('#business_register-city_select');
+
+    initialize();
 
     $('#business_register-city_select').change(function(event) {
         var city_id = $(this).val();
