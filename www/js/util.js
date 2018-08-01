@@ -2833,6 +2833,7 @@ function initialize() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
+    var geocoder = new google.maps.Geocoder();
     var infoWindow = new google.maps.InfoWindow();
     var latlngbounds = new google.maps.LatLngBounds();
 
@@ -2854,6 +2855,7 @@ function initialize() {
             });
         }
     }
+
     google.maps.event.addListener(map, 'click', function (e) {
         lat = e.latLng.lat();
         lng = e.latLng.lng();
