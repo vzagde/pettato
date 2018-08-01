@@ -2836,14 +2836,13 @@ function initialize() {
     var geocoder = new google.maps.Geocoder();
     var infoWindow = new google.maps.InfoWindow();
     var latlngbounds = new google.maps.LatLngBounds();
-
-    var map = new google.maps.Map(document.getElementById("mapCanvas"), mapOptions);
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
     if (lat) {
         if (lng) {
             var myLatLng = {lat: lat, lng: lng};
 
-            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+            var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 17,
                 center: myLatLng
             });
@@ -2851,7 +2850,27 @@ function initialize() {
             var marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
+                draggable: true,
                 title: 'Business Location'
+            });
+
+            marker.addListener('click', toggleBounce);
+
+            google.maps.event.addListener(marker, 'dragend', function (e) {
+                lat = e.latLng.lat();
+                lng = e.latLng.lng();
+                geocoder.geocode({'location': {lat: lat, lng: lng}}, function (results, status) {
+                  console.log(results);
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                            console.log(results[0].formatted_address);
+                        } else {
+                            console.log('No results found');
+                        }
+                    } else {
+                        console.log('Geocoder failed due to: ' + status);
+                    }
+                });
             });
         }
     }
@@ -2859,21 +2878,26 @@ function initialize() {
     google.maps.event.addListener(map, 'click', function (e) {
         lat = e.latLng.lat();
         lng = e.latLng.lng();
-        myApp.alert('Coordinates Received');
         geocoder.geocode({'location': {lat: lat, lng: lng}}, function (results, status) {
-            myApp.alert('Cheking Response.');
-            myApp.alert(results);
-            myApp.alert(status);
+          console.log(results);
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
-                    myApp.alert(results[0].formatted_address);
+                    console.log(results[0].formatted_address);
                 } else {
-                    myApp.alert('No results found');
+                    console.log('No results found');
                 }
             } else {
-                myApp.alert('Cound Fetch Address, Please Try and select nearest location.');
+                console.log('Geocoder failed due to: ' + status);
             }
         });
         initialize();
     });
+}
+
+function toggleBounce() {
+    if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+    } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
 }
