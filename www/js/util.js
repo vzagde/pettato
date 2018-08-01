@@ -2836,13 +2836,13 @@ function initialize() {
     var geocoder = new google.maps.Geocoder();
     var infoWindow = new google.maps.InfoWindow();
     var latlngbounds = new google.maps.LatLngBounds();
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var map = new google.maps.Map(document.getElementById("mapCanvas"), mapOptions);
 
     if (lat) {
         if (lng) {
             var myLatLng = {lat: lat, lng: lng};
 
-            var map = new google.maps.Map(document.getElementById('map'), {
+            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
                 zoom: 17,
                 center: myLatLng
             });
