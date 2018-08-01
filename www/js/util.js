@@ -2857,8 +2857,11 @@ function initialize() {
     google.maps.event.addListener(map, 'click', function (e) {
         lat = e.latLng.lat();
         lng = e.latLng.lng();
+        myApp.alert('Coordinates Received');
         geocoder.geocode({'location': {lat: lat, lng: lng}}, function (results, status) {
-          console.log(results);
+            myApp.alert('Cheking Response.');
+            myApp.alert(results);
+            myApp.alert(status);
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
                     myApp.alert(results[0].formatted_address);
