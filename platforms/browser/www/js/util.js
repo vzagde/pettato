@@ -110,55 +110,45 @@ function register_shopper() {
     var password = $('#shopper_register-password').val().trim();
     var confirm_password = $('#shopper_register-confirm_password').val().trim();
     var city_id = $('#shopper_register-city_select').val();
-    var address = $('#shopper_register-address').val().trim();
-    var phone = $('#shopper_register-phone').val().trim();
-    var profile_image = image_from_device.trim();
-    var dob = $('#shopper_register-dob').val().trim();
+    // var profile_image = image_from_device.trim();
 
     if (name == '') {
-        myApp.alert('Please provide name.');
+        myApp.alert('PLEASE ENTER NAME.');
+        return false;
+    }
+
+    if (username == '') {
+        myApp.alert('PLEASE ENTER USERNAME.');
         return false;
     }
 
     if (email == '') {
-        myApp.alert('Please provide Email Id.');
+        myApp.alert('PLEASE ENTER EMAIL ID');
         return false;
     }
 
     if (!email.match(email_regex)) {
-        myApp.alert('Please provide valid Email Id.');
+        myApp.alert('PLEASE ENTER VALID EMAIL ID');
         return false;
     }
 
     if (password == '') {
-        myApp.alert('Please enter Password.');
+        myApp.alert('PLEASE ENTER PASSWORD');
         return false;
     }
 
-    if (phone !== '') {
-        if (!phone.match(phone_regex)) {
-            myApp.alert('Please enter valid Phone Number.');
-            return false;
-        }
-    }
-
     if (confirm_password == '') {
-        myApp.alert('Please enter confirm password.');
+        myApp.alert('PLEASE CONFIRM PASSWORD');
         return false;
     }
 
     if (password!=confirm_password) {
-        myApp.alert('Password doen not match.');
+        myApp.alert('PASSWORD DOES NOT MATCH');
         return false;
     }
 
     if (city_id == '') {
-        myApp.alert('Please provide city.');
-        return false;
-    }
-
-    if (dob == '') {
-        myApp.alert('Please enter date of birth.');
+        myApp.alert('PLEASE PROVIDE CITY');
         return false;
     }
 
@@ -169,23 +159,20 @@ function register_shopper() {
         dataType: 'json',
         crossDomain: true,
         data: {
-            username: username,
-            email:email,
             first_name: name,
+            username: username,
+            email: email,
             password: password,
             city_id: city_id,
-            dob: dob,
-            image: profile_image,
             medium: 'register',
             user_type: 'User',
-            phone: phone,
         },
     }).done(function(res) {
         myApp.hideIndicator();
         if (res.status == 'success') {
-            // Lockr.set('token', res.data.user_id);
-            // token = res.data.user_id;
-            // user_data = res.data;
+            Lockr.set('token', res.response);
+            user_data = res.response;
+            console.log(user_data);
             mainView.router.load({
                 url: 'profile_shopper.html',
                 ignoreCache: false,
@@ -217,7 +204,7 @@ function register_shopper() {
 function bottom_tabs() {
     clearInterval(new_comment_interval);
     clearInterval(new_chat_interval);
-    if (user_data.user_type == 'Shopper') {
+    if (user_data.user_type == 'User') {
         $('.buzzs').show();
         $('.offers').hide();
     } else {
@@ -361,15 +348,12 @@ function login() {
     var email = $('#login-email').val().trim();
     var password = $('#login-password').val().trim();
     if (email == '') {
-        myApp.alert('Email Id should be provided.');
-        return false;
-    } else if (!email.match(email_regex)) {
-        myApp.alert('Valid Email Id should be provided.');
+        myApp.alert('PLEASE ENTER USERNAME.');
         return false;
     }
 
     if (password == '') {
-        myApp.alert('Password should not be blank.');
+        myApp.alert('PLEASE ENTER PASSWORD.');
         return false;
     }
 
@@ -492,7 +476,7 @@ function update_shopper_profile() {
             dob: dob,
             image: profile_image,
             medium: 'register',
-            user_type: 'Shopper',
+            user_type: 'User',
             phone: phone,
         },
     })
@@ -518,19 +502,24 @@ function update_shopper_profile() {
 
 function register_business() {
     var name = $('#business_register-name').val().trim();
+    var username = $('#business_register-username').val().trim();
+    var business_name = $('#business_register-buissness').val().trim();
+    var category = $('#business_register-category').val();
     var email = $('#business_register-email').val().trim();
+    var phone = $('#business_register-phone').val().trim();
     var password = $('#business_register-password').val().trim();
     var confirm_password = $('#business_register-confirm_password').val().trim();
     var city_id = $('#business_register-city_select').val().trim();
-    var location_id = $('#business_register-location_select').val();
-    var business_name = $('#business_register-buissness').val().trim();
-    var category = $('#business_register-category').val();
+    var address = $('#business_register-address').val().trim();
     var business_category = '';
     var profile_image = image_from_device.trim();
-    var phone = $('#business_register-phone').val().trim();
 
     if (name == '') {
         myApp.alert('Please provide name.');
+        return false;
+    }
+    if (username == '') {
+        myApp.alert('Please provide username.');
         return false;
     }
     if (business_name == '') {
@@ -569,12 +558,8 @@ function register_business() {
         myApp.alert('Please provide city.');
         return false;
     }
-    if (!location_id) {
+    if (!address) {
         myApp.alert('Please provide location.');
-        return false;
-    }
-    if (!gender) {
-        myApp.alert('Please select gender.');
         return false;
     }
     if (profile_image == '') {
@@ -590,20 +575,23 @@ function register_business() {
 
     myApp.showIndicator();
     $.ajax({
-        url: base_url + 'create_user',
+        url: base_url + 'create_business',
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
         data: {
             username: username,
+            business_name: business_name,
             email:email,
             first_name: name,
             password: password,
             city_id: city_id,
-            dob: dob,
+            address: address,
+            lat: lat,
+            lng: lng,
             image: profile_image,
             medium: 'register',
-            user_type: 'User',
+            user_type: 'Business',
             phone: phone,
         },
     }).done(function(res) {
@@ -758,7 +746,6 @@ function load_city(selecter) {
         data: {},
     })
     .done(function(res) {
-        console.log('res: ' + j2s(res));
         myApp.hideIndicator();
         if (res.status == 'Success') {
             html = '<option value="">Select City</option>';
@@ -975,7 +962,7 @@ function load_buzzs_offers(type, selector) {
                     like_link = '<a href="javascript:void(0);" data-liked="0" class="" onClick="like(' + val.id + ', \'' + type + '\', this)"><i class="material-icons white_heart">favorite_border</i></a>';
                 }
 
-                if (val.user_type == 'Shopper') {
+                if (val.user_type == 'User') {
                     profile_link = 'profile_shopper.html?id=' + val.user_id;
                 } else {
                     profile_link = 'profile_business.html?id=' + val.user_id;
@@ -1129,102 +1116,102 @@ function load_feeds() {
     setInterval(function() {
         load_notification_count();
     }, 5000);
-    if (user_data.user_type=='Shopper') {
+    if (user_data.user_type=='User') {
         $('#buzzCreate').show();
         $('#offerCreate').hide();
-    }else {
+    } else {
         $('#buzzCreate').hide();
         $('#offerCreate').show();
     }
-    myApp.showIndicator();
-    $.ajax({
-        url: base_url + 'feeds',
-        type: 'POST',
-        data: {
-            user_id: token,
-        },
-    })
-    .done(function(res) {
-        // console.log('feeds: ' + j2s(res));
 
-        myApp.hideIndicator();
-        console.log("Feeds status"+ res.status);
-        console.log("ENtered console log");
-        if (res.status == 'success') {
-            var html = '';
-            var type = 'feed';
-            $.each(res.data, function(index, val) {
-                var pofile_image;
-                var like_link = '';
-                var profile_link = '';
-                var tags = '';
-                var share_link = '<a href="javascript:void(0);" style="display:none;" onClick="share(\'http://neonbuzz.co/' + type + '/' + val.id + '\', \'' + image_url + val.image + '\')" class="shr_lnk" style=""><i class="material-icons white_heart" style="font-size:28px !important;">share</i></a>';
-                if (val.profile_img.indexOf('http') != -1) {
-                    profile_image = val.profile_img;
-                } else {
-                    profile_image = image_url + val.profile_img;
-                }
+    $( ".add_clk" ).click(function() {
+        $(this).prev(".shr_lnk").slideToggle();
+        $(this).prev(".dlt_lnk").slideToggle();
+    });
+    // myApp.showIndicator();
+   //  $.ajax({
+   //      url: base_url + 'feeds',
+   //      type: 'POST',
+   //      data: {
+   //          user_id: token,
+   //      },
+   //  })
+   //  .done(function(res) {
+   //      // console.log('feeds: ' + j2s(res));
 
-                if (val.is_liked == '1') {
-                    // already liked
-                    like_link = '<a href="javascript:void(0);" data-liked="1" class="" onClick="like(' + val.id + ', \'' + type + '\', this)"><i class="material-icons white_heart">favorite</i></a>';
-                } else {
-                    like_link = '<a href="javascript:void(0);" data-liked="0" class="" onClick="like(' + val.id + ', \'' + type + '\', this)"><i class="material-icons white_heart">favorite_border</i></a>';
-                }
+   //      myApp.hideIndicator();
+   //      console.log("Feeds status"+ res.status);
+   //      console.log("ENtered console log");
+   //      if (res.status == 'success') {
+   //          var html = '';
+   //          var type = 'feed';
+   //          $.each(res.data, function(index, val) {
+   //              var pofile_image;
+   //              var like_link = '';
+   //              var profile_link = '';
+   //              var tags = '';
+   //              var share_link = '<a href="javascript:void(0);" style="display:none;" onClick="share(\'http://neonbuzz.co/' + type + '/' + val.id + '\', \'' + image_url + val.image + '\')" class="shr_lnk" style=""><i class="material-icons white_heart" style="font-size:28px !important;">share</i></a>';
+   //              if (val.profile_img.indexOf('http') != -1) {
+   //                  profile_image = val.profile_img;
+   //              } else {
+   //                  profile_image = image_url + val.profile_img;
+   //              }
+
+   //              if (val.is_liked == '1') {
+   //                  // already liked
+   //                  like_link = '<a href="javascript:void(0);" data-liked="1" class="" onClick="like(' + val.id + ', \'' + type + '\', this)"><i class="material-icons white_heart">favorite</i></a>';
+   //              } else {
+   //                  like_link = '<a href="javascript:void(0);" data-liked="0" class="" onClick="like(' + val.id + ', \'' + type + '\', this)"><i class="material-icons white_heart">favorite_border</i></a>';
+   //              }
 				
-				var remove_link = '<a href="javascript:void(0);" style="display:none;" onclick="remove_me(' + val.id + ', \'' + type + '\', this)" class="dlt_lnk" ><i class="material-icons white_heart" style="font-size:30px !important;">delete</i></a>';
+			// 	var remove_link = '<a href="javascript:void(0);" style="display:none;" onclick="remove_me(' + val.id + ', \'' + type + '\', this)" class="dlt_lnk" ><i class="material-icons white_heart" style="font-size:30px !important;">delete</i></a>';
 
-                if (val.user_type == 'Shopper') {
-                    profile_link = 'profile_shopper.html?id=' + val.user_id;
-                } else {
-                    profile_link = 'profile_business.html?id=' + val.user_id;
-                }
+   //              if (val.user_type == 'User') {
+   //                  profile_link = 'profile_shopper.html?id=' + val.user_id;
+   //              } else {
+   //                  profile_link = 'profile_business.html?id=' + val.user_id;
+   //              }
 
-                var tagsArraay = val.tag.split(',');
-                $.each(tagsArraay, function(tagsIndex, tagsVal) {
-                    tags += ' #' + tagsVal + ',';
-                });
-                tags = tags.slice(0, -1);
-                console.log('tags: '+tags);
+   //              var tagsArraay = val.tag.split(',');
+   //              $.each(tagsArraay, function(tagsIndex, tagsVal) {
+   //                  tags += ' #' + tagsVal + ',';
+   //              });
+   //              tags = tags.slice(0, -1);
+   //              console.log('tags: '+tags);
 
-                html +=
-                    '<div class="card c_ard ks-facebook-card">' +
-						'<div class="black_overlay"></div>' +
-						'<a href="' + profile_link + '" class="card-header no-border pro_view">' +
-							'<div class="ks-facebook-avatar pro_pic">' +
-								'<img src="' + profile_image + '" width="34" height="34">' +
-							'</div>' +
-							'<div class="ks-facebook-name pro_name">' + val.first_name + '</div>' +
-							'<div class="ks-facebook-date pro_tag">'+tags+'</div>' +
-						'</a>' +
-						'<a class="card-content" href="feed.html?id=' + val.id + '">' +
-							'<img data-src="' + image_url + val.image + '" width="100%" class="lazy lazy-fadein">' +
-						'</a>' +
-						'<div class="card-footer no-border like_share">' +
-							share_link +
-							'<a href="javascript:void(0);" class="add_clk"><i class="material-icons white_heart">add_circle</i></a>'+
-							remove_link +
-							like_link +
-						'</div>' +
-                    '</div>';
-            });
-            $('#feeds-container').html(html);
-			
-			$( ".add_clk" ).click(function() {
-				$(this).prev( ".shr_lnk" ).slideToggle();
-				$(this).next( ".dlt_lnk" ).slideToggle();
-			});
-			
-            myApp.initImagesLazyLoad($('[data-page="feeds"]'));
-        } else {
-            var html = '<h4> Feeds not found.</h4>';
-            $('#feeds-container').html(html);
-        }
-    }).fail(function(err) {
-        myApp.hideIndicator();
-        myApp.alert('Some error occurred on connecting.');
-        console.log('fail: ' + j2s(err));
-    }).always();
+   //              html +=
+   //                  '<div class="card c_ard ks-facebook-card">' +
+			// 			'<div class="black_overlay"></div>' +
+			// 			'<a href="' + profile_link + '" class="card-header no-border pro_view">' +
+			// 				'<div class="ks-facebook-avatar pro_pic">' +
+			// 					'<img src="' + profile_image + '" width="34" height="34">' +
+			// 				'</div>' +
+			// 				'<div class="ks-facebook-name pro_name">' + val.first_name + '</div>' +
+			// 				'<div class="ks-facebook-date pro_tag">'+tags+'</div>' +
+			// 			'</a>' +
+			// 			'<a class="card-content" href="feed.html?id=' + val.id + '">' +
+			// 				'<img data-src="' + image_url + val.image + '" width="100%" class="lazy lazy-fadein">' +
+			// 			'</a>' +
+			// 			'<div class="card-footer no-border like_share">' +
+			// 				share_link +
+			// 				'<a href="javascript:void(0);" class="add_clk"><i class="material-icons white_heart">add_circle</i></a>'+
+			// 				remove_link +
+			// 				like_link +
+			// 			'</div>' +
+   //                  '</div>';
+   //          });
+   //          $('#feeds-container').html(html);
+
+   //          myApp.initImagesLazyLoad($('[data-page="feeds"]'));
+   //      } else {
+   //          var html = '<h4> Feeds not found.</h4>';
+   //          $('#feeds-container').html(html);
+   //      }
+    // }).fail(function(err) {
+    //     myApp.hideIndicator();
+    //     myApp.alert('Some error occurred on connecting.');
+    //     console.log('fail: ' + j2s(err));
+    // }).always();
 }
 
 function load_feed(id) {
@@ -1846,7 +1833,7 @@ function come_form_notification_image(cat, id, type) {
 }
 
 function goto_profile() {
-    if (user_data.user_type == 'Shopper') {
+    if (user_data.user_type == 'User') {
         mainView.router.load({
             url: 'profile_shopper.html',
             query: {
@@ -1867,7 +1854,7 @@ function goto_profile() {
 
 
 function goto_edit_profile() {
-    if (user_data.user_type == 'Shopper') {
+    if (user_data.user_type == 'User') {
         mainView.router.load({
             url: 'edit_profile_shopper.html',
             query: {
@@ -2325,7 +2312,6 @@ function load_category(selector, afterCallback) {
         data: {},
     })
     .done(function(res) {
-        console.log('res: ' + j2s(res));
         myApp.hideIndicator();
         if (res.status == 'Success') {
             var html = '';
@@ -2367,7 +2353,7 @@ function load_search() {
                     profile_image = image_url + val.image;
                 }
 
-                if (val.user_type == 'Shopper') {
+                if (val.user_type == 'User') {
                     profile_link = 'profile_shopper.html?id=' + val.id;
                 } else {
                     profile_link = 'profile_business.html?id=' + val.id;
@@ -2709,7 +2695,7 @@ function login_via_fb(data) {
             first_name: data.name,
             image: 'http://graph.facebook.com/'+data.id+'/picture',
             medium: 'facebook',
-            user_type: 'Shopper',
+            user_type: 'User',
         },
     })
     .done(function(res) {
@@ -2792,6 +2778,13 @@ function open_dialog_for_image() {
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
+    console.log("Token: "+token);
+    user_data = token;
+    if (token === undefined) {
+        goto_page('index.html');
+    } else {
+        goto_page('feeds.html');
+    }
     document.addEventListener("backbutton", function(e) {
         e.preventDefault();
         var page = myApp.getCurrentView().activePage;
@@ -2833,9 +2826,9 @@ function initialize() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
+    var geocoder = new google.maps.Geocoder();
     var infoWindow = new google.maps.InfoWindow();
     var latlngbounds = new google.maps.LatLngBounds();
-
     var map = new google.maps.Map(document.getElementById("mapCanvas"), mapOptions);
 
     if (lat) {
@@ -2850,10 +2843,32 @@ function initialize() {
             var marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
+                draggable: true,
                 title: 'Business Location'
+            });
+
+            marker.addListener('click', toggleBounce);
+
+            google.maps.event.addListener(marker, 'dragend', function (e) {
+                lat = e.latLng.lat();
+                lng = e.latLng.lng();
+                geocoder.geocode({'location': {lat: lat, lng: lng}}, function (results, status) {
+                  console.log(results);
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                            console.log(results[0].formatted_address);
+                            $("#business_register-address").val(results[0].formatted_address);
+                        } else {
+                            console.log('No results found');
+                        }
+                    } else {
+                        console.log('Geocoder failed due to: ' + status);
+                    }
+                });
             });
         }
     }
+
     google.maps.event.addListener(map, 'click', function (e) {
         lat = e.latLng.lat();
         lng = e.latLng.lng();
@@ -2861,14 +2876,23 @@ function initialize() {
           console.log(results);
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
-                    myApp.alert(results[0].formatted_address);
+                    console.log(results[0].formatted_address);
+                    $("#business_register-address").val(results[0].formatted_address);
                 } else {
-                    myApp.alert('No results found');
+                    console.log('No results found');
                 }
             } else {
-                myApp.alert('Cound Fetch Address, Please Try and select nearest location.');
+                console.log('Geocoder failed due to: ' + status);
             }
         });
         initialize();
     });
+}
+
+function toggleBounce() {
+    if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+    } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
 }

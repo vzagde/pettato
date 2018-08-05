@@ -8,7 +8,7 @@ var image_url = 'http://notchitup.in/pettato_ci/assets/upload_image/';
 // var base_url = 'http://casaestilo.in/neonbuzz_d/neonbuzz_api/index.php/api_v2';
 // var image_url = 'http://casaestilo.in/neonbuzz_d/neonbuzz_api/upload_image/profile_pic/';
 var token = Lockr.get('token');
-var user_data = {};
+var user_data;
 var email_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 var phone_regex = /^\d{10}$/;
 var image_from_device = '';
@@ -38,7 +38,6 @@ var calendarDefault;
 var days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-// init Framework7
 var myApp = new Framework7({
     swipePanel: 'left',
     material: true,
@@ -54,7 +53,6 @@ var myApp = new Framework7({
 // $$(document).on('pageAfterAnimation', function(e) { if (e.detail.page.name == "index" || e.detail.page.name == "login" || e.detail.page.name == "before_register" || e.detail.page.name == "shopper_register" || e.detail.page.name == "business_register" || e.detail.page.name == "forgot_password") { myApp.allowPanelOpen = false; } else { myApp.allowPanelOpen = true; } });
 
 var mainView = myApp.addView('.view-main', {});
-
 
 myApp.onPageInit('index', function(page) {
     myApp.allowPanelOpen = false;
