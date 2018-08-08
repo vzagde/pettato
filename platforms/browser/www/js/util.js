@@ -1115,7 +1115,8 @@ function load_feeds() {
         $('#offerCreate').show();
     }
 
-    $( ".add_clk" ).click(function() {
+    $(".add_clk").click(function() {
+        $(".shr_lnk").hide();
         $(this).prev(".shr_lnk").slideToggle();
         $(this).prev(".shr_lnk").prev(".shr_lnk").slideToggle();
         $(this).prev(".shr_lnk").prev(".shr_lnk").prev(".shr_lnk").slideToggle();
