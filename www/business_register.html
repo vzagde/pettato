@@ -42,7 +42,7 @@
           </li>
           <li>
             <a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="Search categories">
-              <select name="car" multiple id="business_register-category">
+              <select name="car" id="business_register-category">
               </select>
               <div class="item-content">
                 <div class="item-inner">
@@ -62,7 +62,7 @@
           </li>
           <li class="item-content">
             <div class="item-inner">
-              <div class="item-title label">Phone number (Never Shared)</div>
+              <div class="item-title label">Phone number</div>
               <div class="item-input">
                 <input id="business_register-phone" type="tel" maxlength="10" class="not-empty-state" placeholder="Your Phone number"/>
               </div>
@@ -90,9 +90,7 @@
                 </select>
                 <div class="item-content">
                     <div class="item-inner">
-                      <!-- Select label -->
                       <div class="item-title">City</div>
-                      <!-- Selected value, not required -->
                       <div class="item-after"></div>
                     </div>
                 </div>
@@ -106,18 +104,9 @@
               </div>
               <br>
               <div class="item-input">
-                <!-- <input id="business_register-email" type="email" placeholder="Your Email ID"/> -->
                 <textarea id="business_register-address" placeholder="Address"></textarea>
-              </div>
-            </div>
-          </li>
-          <li class="item-content">
-            <div class="item-inner">
-              <div class="item-title">Profile pic</div>
-              <div class="item-input">
-                  <a href="#" id="shopper_register-profile_btn" onclick="open_dialog_for_image()" class="floating-button black_clr">
-                    <i class="material-icons">add_a_photo</i>
-                  </a>
+                <input type="text" name="business_register-lat" id="business_register-lat" value="" style="display: none">
+                <input type="text" name="business_register-lng" id="business_register-lng" value="" style="display: none">
               </div>
             </div>
           </li>

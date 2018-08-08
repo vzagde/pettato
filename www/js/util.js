@@ -113,42 +113,42 @@ function register_shopper() {
     // var profile_image = image_from_device.trim();
 
     if (name == '') {
-        myApp.alert('PLEASE ENTER NAME.');
+        myApp.alert('Please enter name');
         return false;
     }
 
     if (username == '') {
-        myApp.alert('PLEASE ENTER USERNAME.');
+        myApp.alert('Please enter username');
         return false;
     }
 
     if (email == '') {
-        myApp.alert('PLEASE ENTER EMAIL ID');
+        myApp.alert('Please enter email id');
         return false;
     }
 
     if (!email.match(email_regex)) {
-        myApp.alert('PLEASE ENTER VALID EMAIL ID');
+        myApp.alert('Please enter valid email id');
         return false;
     }
 
     if (password == '') {
-        myApp.alert('PLEASE ENTER PASSWORD');
+        myApp.alert('Please enter password');
         return false;
     }
 
     if (confirm_password == '') {
-        myApp.alert('PLEASE CONFIRM PASSWORD');
+        myApp.alert('Please confirm password');
         return false;
     }
 
     if (password!=confirm_password) {
-        myApp.alert('PASSWORD DOES NOT MATCH');
+        myApp.alert('Password does not match');
         return false;
     }
 
     if (city_id == '') {
-        myApp.alert('PLEASE PROVIDE CITY');
+        myApp.alert('Please select city');
         return false;
     }
 
@@ -174,7 +174,7 @@ function register_shopper() {
             user_data = res.response;
             console.log(user_data);
             mainView.router.load({
-                url: 'profile_shopper.html',
+                url: 'feeds.html',
                 ignoreCache: false,
                 query: {
                     register: true
@@ -192,14 +192,168 @@ function register_shopper() {
     });
 }
 
+function login() {
+    var email = $('#login-username').val().trim();
+    var password = $('#login-password').val().trim();
+    if (email == '') {
+        myApp.alert('Please enter email id');
+        return false;
+    }
 
+    if (password == '') {
+        myApp.alert('Please enter password');
+        return false;
+    }
 
+    myApp.showIndicator();
+    $.ajax({
+        url: base_url + 'login',
+        type: 'POST',
+        crossDomain: true,
+        data: {
+            "identity": email,
+            "password": password,
+        },
+    })
+    .done(function(res) {
+        console.log('done: ' + j2s(res));
+        myApp.hideIndicator();
+        if (res.status == 'success') {
+            Lockr.set('token', res.response);
+            user_data = res.response;
+            console.log(user_data);
+            mainView.router.load({
+                url: 'feeds.html',
+                ignoreCache: false,
+            });
+        } else {
+            myApp.alert(res.api_msg);
+        }
+    })
+    .fail(function(err) {
+        myApp.hideIndicator();
+        myApp.alert('Some error occured while processing your request, Please try again later.');
+        console.log('fail: ' + j2s(err));
+    })
+    .always(function() {});
+}
 
+function register_business() {
+    var name = $('#business_register-name').val().trim();
+    var username = $('#business_register-username').val().trim();
+    var business_name = $('#business_register-buissness').val().trim();
+    var category = $('#business_register-category').val();
+    var email = $('#business_register-email').val().trim();
+    var phone = $('#business_register-phone').val().trim();
+    var password = $('#business_register-password').val().trim();
+    var confirm_password = $('#business_register-confirm_password').val().trim();
+    var city_id = $('#business_register-city_select').val().trim();
+    var address = $('#business_register-address').val().trim();
+    var lat_add = $('#business_register-lat').val().trim();
+    var lng_add = $('#business_register-lng').val().trim();
+    var business_category = '';
+    // var profile_image = image_from_device.trim();
 
+    if (name == '') {
+        myApp.alert('Please provide name.');
+        return false;
+    }
+    if (username == '') {
+        myApp.alert('Please provide username.');
+        return false;
+    }
+    if (business_name == '') {
+        myApp.alert('Please provide business name.');
+        return false;
+    }
+    if (!category) {
+        myApp.alert('Please select category.');
+        return false;
+    }
+    if (email == '') {
+        myApp.alert('Please provide email id.');
+        return false;
+    }
+    if (phone == '') {
+        myApp.alert('Please provide email id.');
+        return false;
+    }
+    if (!phone.match(phone_regex)) {
+        myApp.alert('Please enter valid phone number.');
+        return false;
+    }
+    if (!email.match(email_regex)) {
+        myApp.alert('Please provide valid email id.');
+        return false;
+    }
+    if (password == '') {
+        myApp.alert('Please provide password.');
+        return false;
+    }
+    if (confirm_password == '') {
+        myApp.alert('Please confirm password.');
+        return false;
+    }
+    if (!password == confirm_password) {
+        myApp.alert('Password mismatch.');
+        return false;
+    }
+    if (city_id == '') {
+        myApp.alert('Please provide city.');
+        return false;
+    }
+    if (!address) {
+        myApp.alert('Please provide location.');
+        return false;
+    }
 
+    // business_category = business_category.slice(0, -1);
 
-
-
+    myApp.showIndicator();
+    $.ajax({
+        url: base_url + 'create_business',
+        type: 'POST',
+        dataType: 'json',
+        crossDomain: true,
+        data: {
+            username: username,
+            business_name: business_name,
+            email:email,
+            first_name: name,
+            password: password,
+            category: category,
+            city_id: city_id,
+            address: address,
+            lat: lat_add,
+            lng: lng_add,
+            medium: 'register',
+            user_type: 'Business',
+            phone: phone,
+        },
+    }).done(function(res) {
+        myApp.hideIndicator();
+        if (res.status == 'success') {
+            Lockr.set('token', res.response);
+            user_data = res.response;
+            console.log(user_data);
+            mainView.router.load({
+                url: 'feeds.html',
+                ignoreCache: false,
+                query: {
+                    register: true
+                },
+            });
+        } else {
+            myApp.alert(res.api_msg);
+        }
+    }).fail(function(err) {
+        myApp.hideIndicator();
+        myApp.alert('Some error occured while processing your request, Please try again later.');
+        console.log("error: " + j2s(err));
+    }).always(function() {
+        console.log("complete");
+    });
+}
 
 function bottom_tabs() {
     clearInterval(new_comment_interval);
@@ -212,6 +366,14 @@ function bottom_tabs() {
         $('.offers').show();
     }
 }
+
+
+
+
+
+
+
+
 
 function image_gallery() {
     navigator.camera.getPicture(shopper_register_onSuccess, shopper_register_onFail, {
@@ -344,51 +506,6 @@ function cover_image_onSuccess_file(res) {
     }
 }
 
-function login() {
-    var email = $('#login-email').val().trim();
-    var password = $('#login-password').val().trim();
-    if (email == '') {
-        myApp.alert('PLEASE ENTER USERNAME.');
-        return false;
-    }
-
-    if (password == '') {
-        myApp.alert('PLEASE ENTER PASSWORD.');
-        return false;
-    }
-
-    myApp.showIndicator();
-    $.ajax({
-        url: base_url + 'login',
-        type: 'POST',
-        crossDomain: true,
-        data: {
-            "identity": email,
-            "password": password,
-        },
-    })
-    .done(function(res) {
-        console.log('done: ' + j2s(res));
-        myApp.hideIndicator();
-        if (res.status == 'success') {
-            Lockr.set('token', res.data.user_id);
-            token = res.data.user_id;
-            user_data = res.data;
-            mainView.router.load({
-                url: 'feeds.html',
-                ignoreCache: false,
-            });
-        } else {
-            myApp.alert('Email or Password Mismatch');
-        }
-    })
-    .fail(function(err) {
-        myApp.hideIndicator();
-        myApp.alert('Some error occurred on connecting.');
-        console.log('fail: ' + j2s(err));
-    })
-    .always(function() {});
-}
 
 
 $(document).on('change','#shopper_register-dob',function(){
@@ -500,132 +617,6 @@ function update_shopper_profile() {
     });
 }
 
-function register_business() {
-    var name = $('#business_register-name').val().trim();
-    var username = $('#business_register-username').val().trim();
-    var business_name = $('#business_register-buissness').val().trim();
-    var category = $('#business_register-category').val();
-    var email = $('#business_register-email').val().trim();
-    var phone = $('#business_register-phone').val().trim();
-    var password = $('#business_register-password').val().trim();
-    var confirm_password = $('#business_register-confirm_password').val().trim();
-    var city_id = $('#business_register-city_select').val().trim();
-    var address = $('#business_register-address').val().trim();
-    var business_category = '';
-    var profile_image = image_from_device.trim();
-
-    if (name == '') {
-        myApp.alert('Please provide name.');
-        return false;
-    }
-    if (username == '') {
-        myApp.alert('Please provide username.');
-        return false;
-    }
-    if (business_name == '') {
-        myApp.alert('Please provide business name.');
-        return false;
-    }
-    if (!category) {
-        myApp.alert('Please select category.');
-        return false;
-    }
-    if (email == '') {
-        myApp.alert('Please provide email id.');
-        return false;
-    }
-    if (!phone.match(phone_regex)) {
-        myApp.alert('Please enter valid phone number.');
-        return false;
-    }
-    if (!email.match(email_regex)) {
-        myApp.alert('Please provide valid email id.');
-        return false;
-    }
-    if (password == '') {
-        myApp.alert('Please provide password.');
-        return false;
-    }
-    if (confirm_password == '') {
-        myApp.alert('Please confirm password.');
-        return false;
-    }
-    if (!password == confirm_password) {
-        myApp.alert('Password mismatch.');
-        return false;
-    }
-    if (city_id == '') {
-        myApp.alert('Please provide city.');
-        return false;
-    }
-    if (!address) {
-        myApp.alert('Please provide location.');
-        return false;
-    }
-    if (profile_image == '') {
-        myApp.alert('Please upload profile image.');
-        return false;
-    }
-
-    $.each(category, function(index, val) {
-        business_category += val + ',';
-    });
-
-    business_category = business_category.slice(0, -1);
-
-    myApp.showIndicator();
-    $.ajax({
-        url: base_url + 'create_business',
-        type: 'POST',
-        dataType: 'json',
-        crossDomain: true,
-        data: {
-            username: username,
-            business_name: business_name,
-            email:email,
-            first_name: name,
-            password: password,
-            city_id: city_id,
-            address: address,
-            lat: lat,
-            lng: lng,
-            image: profile_image,
-            medium: 'register',
-            user_type: 'Business',
-            phone: phone,
-        },
-    }).done(function(res) {
-        myApp.hideIndicator();
-        if (res.status == 'success') {
-            // Lockr.set('token', res.data.user_id);
-            // token = res.data.user_id;
-            // user_data = res.data;
-            mainView.router.load({
-                url: 'profile_shopper.html',
-                ignoreCache: false,
-                query: {
-                    register: true
-                },
-            });
-        } else {
-            myApp.alert(res.api_msg);
-        }
-    }).fail(function(err) {
-        myApp.hideIndicator();
-        myApp.alert('Some error occured while processing your request, Please try again later.');
-        console.log("error: " + j2s(err));
-    }).always(function() {
-        console.log("complete");
-    });
-
-    // mainView.router.load({
-    //     url: 'profile_business.html',
-    //     ignoreCache: false,
-    //     query: {
-    //         register: true
-    //     },
-    // });
-}
 
 function edit_profile_business() {
     console.log('business-update');
@@ -1126,6 +1117,8 @@ function load_feeds() {
 
     $( ".add_clk" ).click(function() {
         $(this).prev(".shr_lnk").slideToggle();
+        $(this).prev(".shr_lnk").prev(".shr_lnk").slideToggle();
+        $(this).prev(".shr_lnk").prev(".shr_lnk").prev(".shr_lnk").slideToggle();
         $(this).prev(".dlt_lnk").slideToggle();
     });
     // myApp.showIndicator();
@@ -1874,99 +1867,69 @@ function goto_edit_profile() {
 }
 
 function load_shopper_profile(user_id) {
-    //gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "shopper_profile", "view", user_id, parseInt(token));
-    console.log('user_id: ' + user_id);
-    console.log('token: ' + token);
-    // $('.follow_block').hide();
-    // $.ajax({
-    //     url: base_url + 'get_user_profile',
-    //     type: 'POST',
-    //     dataType: 'json',
-    //     crossDomain: true,
-    //     data: {
-    //         my_id: token,
-    //         user_id: user_id,
-    //     },
-    // })
-    // .done(function(res) {
-    //     console.log("success: " + j2s(res));
-    //     if (res.status == 'success') {
-    //         var image = '';
-    //         if (res.data.medium == 'register') {
-    //             image = image_url + res.data.image;
-    //         } else {
-    //             image = res.data.image;
-    //         }
-    //         $('.cover_image').attr('src', image_url + res.data.cover_profile);
-    //         $('.profie_image').attr('src', image);
+    $.ajax({
+        url: base_url + 'get_user_profile',
+        type: 'POST',
+        dataType: 'json',
+        crossDomain: true,
+        data: {
+            user_id: user_id,
+        },
+    })
+    .done(function(res) {
+        if (res.status == 'Success') {
+            console.log(res.status);
+            console.log(res.response.user_details);
+            var cover_image = image_url+res.response.user_details.cover_pic;
+            var profile_image = image_url+res.response.user_details.profile_image;
+            var image = '';
 
-    //         /*
-    //         *   visitor or self view of profile
-    //         */
-    //         if (parseInt(user_id) != parseInt(token)) {
-    //             // vstr
-    //             $('.follow_block').show();
-    //             $('.cover_image_btn').hide();
-    //             $('.user_status').hide();
+            $('.cover_image').attr('src', cover_image);
+            $('.profie_image').attr('src', profile_image);
 
-    //             if (res.follow_status == 'unfollow') {
-    //                 $('.unfollow').show();
-    //                 $('.follow').hide();
-    //             } else {
-    //                 $('.unfollow').hide();
-    //                 $('.follow').show();
-    //             }
-    //         } else {
-    //             // me
-    //             $('.follow_block').hide();  
-    //             $('.cover_image_btn').show();
-    //             $('.status_me').change(function(event) {
-    //                 status_update($(this).val());
-    //             });
-    //         }
+            /*
+            *   visitor or self view of profile
+            */
+            // me
+            $('.follow_block').hide();  
+            $('.cover_image_btn').show();
+            // $('.status_me').change(function(event) {
+            //     status_update($(this).val());
+            // });
 
-    //         $('.status_vstr').text(res.data.status);
-    //         $('.status_me').val(res.data.status);
+            $('.followers').text(res.followers);
+            $('.followings').text(res.followings);
 
-    //         if (res.data.status == '') {
-    //             $('.status').text('');
-    //         } else {
-    //             $('.status').text(res.data.status);
-    //         }
+            // $('.chat').click(function(event) {
+            //     goto_single_chat(res.data.id);
+            // });
 
-    //         $('.followers').text(res.followers);
-    //         $('.followings').text(res.followings);
+            // $('.follow').click(function(event) {
+            //     follow(res.data.id);
+            // });
 
-    //         $('.chat').click(function(event) {
-    //             goto_single_chat(res.data.id);
-    //         });
+            // $('.unfollow').click(function(event) {
+            //     unfollow(res.data.id);
+            // });
 
-    //         $('.follow').click(function(event) {
-    //             follow(res.data.id);
-    //         });
+            $('.p_name').text(res.response.user_details.first_name);
 
-    //         $('.unfollow').click(function(event) {
-    //             unfollow(res.data.id);
-    //         });
-
-    //         $('.p_name').text(res.data.first_name);
-
-    //         var feeds = '';
-    //         $.each(res.feeds, function(index, val) {
-    //             feeds+= 
-    //             '<div class="own_feed">'+
-    //                 '<a href="feed.html?id='+val.id+'"><img src="'+image_url+val.image+'" class="wdh" alt="" /></a>'+
-    //             '</div>';
-    //         });
-    //         $('.profile-feed-container').html(feeds);
-    //     }
-    // })
-    // .fail(function(err) {
-    //     console.log("error: " + j2s(err));
-    // })
-    // .always(function() {
-    //     console.log("complete");
-    // });
+            // var feeds = '';
+            // $.each(res.feeds, function(index, val) {
+            //     feeds+= 
+            //     '<div class="own_feed">'+
+            //         '<a href="feed.html?id='+val.id+'"><img src="'+image_url+val.image+'" class="wdh" alt="" /></a>'+
+            //     '</div>';
+            // });
+            // $('.profile-feed-container').html(feeds);
+        }
+    })
+    .fail(function(err) {
+        console.log("error: " + j2s(err));
+    })
+    .always(function() {
+        console.log("complete");
+    });
 }
 
 function goto_single_chat(id) {
@@ -2000,135 +1963,61 @@ function status_update(status) {
     
 }
 
-function load_business_profile(user_id) {
-    //gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "business_profile", "view", user_id, parseInt(token));
-    console.log('user_id: ' + user_id);
-    console.log('token: ' + token);
-    $('.follow_block').hide();
-    // $.ajax({
-    //     url: base_url + 'get_user_profile',
-    //     type: 'POST',
-    //     dataType: 'json',
-    //     crossDomain: true,
-    //     data: {
-    //         my_id: token,
-    //         user_id: user_id,
-    //     },
-    // })
-    // .done(function(res) {
-    //     console.log("success: " + j2s(res));
-    //     if (res.status == 'success') {
-    //         var image = '';
-    //         if (res.data.medium == 'register') {
-    //             image = image_url + res.data.image;
-    //         } else {
-    //             image = res.data.image;
-    //         }
+function load_business_profile(user_id) {    
+    $.ajax({
+        url: base_url + 'get_user_profile',
+        type: 'POST',
+        dataType: 'json',
+        crossDomain: true,
+        data: {
+            user_id: user_id,
+        },
+    })
+    .done(function(res) {
+        if (res.status == 'Success') {
+            console.log(res.status);
+            console.log(res.response.user_details);
+            var cover_image = image_url+res.response.user_details.cover_pic;
+            var profile_image = image_url+res.response.user_details.profile_image;
+            var image = '';
 
-    //         $('.cover_image').attr('src', image_url + res.data.cover_profile);
-    //         $('.profie_image').attr('src', image);
+            $('.cover_image').attr('src', cover_image);
+            $('.profie_image').attr('src', profile_image);
 
-    //         if (parseInt(user_id) != parseInt(token)) {
-    //             console.log('vsts');
-    //             $('.follow_block').show();
-    //             $('.cover_image_btn').hide();
+            $('.cover_image_btn').show();
 
-    //             if (res.follow_status == 'unfollow') {
-    //                 $('.unfollow').show();
-    //                 $('.follow').hide();
-    //             } else {
-    //                 $('.unfollow').hide();
-    //                 $('.follow').show();
-    //             }
-    //         } else {
-    //             console.log('me');
-    //             $('.follow_block').hide();
-    //             $('.cover_image_btn').show();
-    //         }
+            // If It's Own Account
+            $('.follow_block').hide();
 
-    //         $('.chat').click(function(event) {
-    //             goto_single_chat(res.data.id);
-    //         });
+            $('.followers').text(res.followers);
+            $('.followings').text(res.followings);
 
-    //         $('.call').click(function(event) {
-    //             dial_number(res.data.phone);
-    //         });
+            // $('.chat').click(function(event) {
+            //     goto_single_chat(res.data.id);
+            // });
 
-    //         $('.p_name').text(res.data.first_name);
-    //         $('.p_name1').text(res.data.bussiness_name);
+            // $('.follow').click(function(event) {
+            //     follow(res.data.id);
+            // });
 
-    //         if (res.data.status == '') {
-    //             $('.status').text('');
-    //         } else {
-    //             $('.status').text(res.data.status);
-    //         }
-    //         $('.followers').text(res.followers);
-    //         $('.followings').text(res.followings);
+            // $('.unfollow').click(function(event) {
+            //     unfollow(res.data.id);
+            // });
 
-    //         $('.follow').click(function(event) {
-    //             follow(res.data.id);
-    //         });
+            $('.call').click(function(event) {
+                dial_number(res.data.phone);
+            });
 
-    //         $('.unfollow').click(function(event) {
-    //             unfollow(res.data.id);
-    //         });
-
-    //         columns = res.columns;
-    //         series = res.series;
-
-    //         $('.chart_container').highcharts({
-    //             chart: {
-    //                 type: 'column'
-    //             },
-    //             title: {
-    //                 text: 'Monthly Follow'
-    //             },
-    //             subtitle: {
-    //                 text: 'Brand Stats'
-    //             },
-    //             xAxis: {
-    //                 categories: columns,
-    //                 crosshair: true
-    //             },
-    //             yAxis: {
-    //                 min: 0,
-    //                 title: {
-    //                     text: 'No. of follows'
-    //                 }
-    //             },
-    //             tooltip: {
-    //                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-    //                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-    //             '<td style="padding:0"><b>{point.y:.1f} follows</b></td></tr>',
-    //                 footerFormat: '</table>',
-    //                 shared: true,
-    //                 useHTML: true
-    //             },
-    //             plotOptions: {
-    //                 column: {
-    //                     pointPadding: 0.2,
-    //                     borderWidth: 0
-    //                 }
-    //             },
-    //             series: series,
-    //         });
-
-    //         var feeds = '';
-    //         $.each(res.feeds, function(index, val) {
-    //             feeds+= 
-    //             '<div class="own_feed">'+
-    //                 '<a href="feed.html?id='+val.id+'"><img src="'+image_url+val.image+'" class="wdh" alt="" /></a>'+
-    //             '</div>';
-    //         });
-    //         $('.profile-feed-container').html(feeds);
-    //     }
-    // })
-    // .fail(function(err) {
-    //     console.log("error: " + j2s(err));
-    // })
-    // .always(function() {
-    //     console.log("complete");
-    // });
+            $('.p_name').text(res.response.user_details.first_name);
+            $('.p_name1').text(res.response.user_details.business_name);
+        }
+    })
+    .fail(function(err) {
+        console.log("error: " + j2s(err));
+    })
+    .always(function() {
+        console.log("complete");
+    });
 }
 
 function dial_number(phone) {
@@ -2852,11 +2741,13 @@ function initialize() {
             google.maps.event.addListener(marker, 'dragend', function (e) {
                 lat = e.latLng.lat();
                 lng = e.latLng.lng();
+                $("#business_register-lat").val(lat);
+                $("#business_register-lng").val(lng);
+
                 geocoder.geocode({'location': {lat: lat, lng: lng}}, function (results, status) {
                   console.log(results);
                     if (status == google.maps.GeocoderStatus.OK) {
                         if (results[0]) {
-                            console.log(results[0].formatted_address);
                             $("#business_register-address").val(results[0].formatted_address);
                         } else {
                             console.log('No results found');
@@ -2872,11 +2763,13 @@ function initialize() {
     google.maps.event.addListener(map, 'click', function (e) {
         lat = e.latLng.lat();
         lng = e.latLng.lng();
+        $("#business_register-lat").val(lat);
+        $("#business_register-lng").val(lng);
+
         geocoder.geocode({'location': {lat: lat, lng: lng}}, function (results, status) {
           console.log(results);
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
-                    console.log(results[0].formatted_address);
                     $("#business_register-address").val(results[0].formatted_address);
                 } else {
                     console.log('No results found');

@@ -61,17 +61,17 @@
 				</div>
 			</div>
 			<div class="user_blk">
-				<div class="pro_file_icons follow_block call">
+				<div class="pro_file_icons call">
 					<i class="material-icons">supervisor_account</i>
 					<p>Add<br>Account</p>
 				</div>
-				<div class="pro_file_icons chat follow_block">
+				<div class="pro_file_icons chat">
 					<i class="material-icons">pets</i>
 					<p>Pet<br>Account</p>
 				</div>
-				<div class="pro_file_icons follow_block follow">
+				<div class="pro_file_icons follow">
 					<center><i class="material-icons">business_center</i></center>
-					<p class="">Business<br>Account</p>
+					<p class="">User<br>Account</p>
 				</div>
 			</div>
 			<div class="user_own_feed">
@@ -87,6 +87,31 @@
 				    </div>
 				</div>
 			</div>
+        </div>
+        <!-- tab start here -->
+        <div class="toolbar tabbar">
+            <div class="toolbar-inner">
+                <a href="#" class="tab-link buzzs" onclick="goto_page('feeds.html')">
+					<i class="material-icons color_blk">local_offer</i>
+                </a>
+                <a href="#" class="tab-link offers" onclick="goto_page('feeds.html')">
+                    <i class="material-icons color_blk">local_offer</i>
+                </a>
+                <a href="#" class="tab-link create_feed" onclick="goto_page('create_feed.html')">
+                    <i class="material-icons color_blk">linked_camera</i>
+                </a>
+                <a href="#" class="tab-link chats" onclick="goto_page('chats.html')">
+                    <span class="badge bg-red"></span>
+                    <i class="material-icons color_blk">chat</i>
+                </a>
+				<a href="#" class="tab-link notifications" onclick="goto_page('notifications.html')">
+                    <span class="badge bg-green"></span>
+                    <i class="material-icons color_blk">notifications_paused</i>
+                </a>
+                <a href="#" class="tab-link notifications" onclick="goto_profile()">
+                    <i class="material-icons color_blk">account_circle</i>
+                </a>
+            </div>
         </div>
     </div>
 </div>
