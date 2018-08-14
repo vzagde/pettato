@@ -1210,71 +1210,71 @@ function load_feeds() {
 
 function load_feed(id) {
     //gaPlugin.trackEvent( nativePluginResultHandler, nativePluginErrorHandler, "single_feed", "view", id, parseInt(token));
-    myApp.showIndicator();
-    $.ajax({
-        url: base_url + 'feed',
-        type: 'POST',
-        data: {
-            user_id: token,
-            feed_id: id,
-        },
-    })
-    .done(function(res) {
-        console.log('feed: ' + j2s(res));
+    // myApp.showIndicator();
+    // $.ajax({
+    //     url: base_url + 'feed',
+    //     type: 'POST',
+    //     data: {
+    //         user_id: token,
+    //         feed_id: id,
+    //     },
+    // })
+    // .done(function(res) {
+    //     console.log('feed: ' + j2s(res));
 
-        myApp.hideIndicator();
-        if (res.status = 'success' && res.res_cnt>0) {
-            var html = '';
-            var type = 'feed';
-            var val = res.data[0];
-            var tags = '';
-            // $.each(res.data, function(index, val) {
-            var pofile_image;
-            var like_link = '';
-            if (val.profile_img.indexOf('http') != -1) {
-                profile_image = val.profile_img;
-            } else {
-                profile_image = image_url + val.profile_img;
-            }
+    //     myApp.hideIndicator();
+    //     if (res.status = 'success' && res.res_cnt>0) {
+    //         var html = '';
+    //         var type = 'feed';
+    //         var val = res.data[0];
+    //         var tags = '';
+    //         // $.each(res.data, function(index, val) {
+    //         var pofile_image;
+    //         var like_link = '';
+    //         if (val.profile_img.indexOf('http') != -1) {
+    //             profile_image = val.profile_img;
+    //         } else {
+    //             profile_image = image_url + val.profile_img;
+    //         }
 
-            var tagsArraay = val.tag.split(',');
-            $.each(tagsArraay, function(tagsIndex, tagsVal) {
-                tags += ' #' + tagsVal + ',';
-            });
-            tags = tags.slice(0, -1);
-            console.log('tags: '+tags);
+    //         var tagsArraay = val.tag.split(',');
+    //         $.each(tagsArraay, function(tagsIndex, tagsVal) {
+    //             tags += ' #' + tagsVal + ',';
+    //         });
+    //         tags = tags.slice(0, -1);
+    //         console.log('tags: '+tags);
 
 
-            html +=
-                '<div class="card c_ard ks-facebook-card">' +
-					'<div class="black_overlay"></div>' +
-					'<div class="card-header no-border pro_view">' +
-						'<div class="ks-facebook-avatar pro_pic">' +
-							'<img src="' + profile_image + '" width="34" height="34">' +
-						'</div>' +
-						'<div class="ks-facebook-name pro_name">' + val.first_name + '</div>' +
-						'<div class="ks-facebook-date pro_tag">'+tags+'</div>' +
-					'</div>' +
-					'<div class="card-content">' +
-						'<img data-src="' + image_url + val.image + '" width="100%" class="lazy lazy-fadein">' +
-					'</div>' +
-				'</div>'+
-				'<div class="card-footer no-border pad_5">' +
-					'<div class="desc">' + val.description + '</div>' +
-				'</div>';
-            // });
-            $('#feed-container').html(html);
-            $('#feed_comment').data('id', val.id);
-            myApp.initImagesLazyLoad($('[data-page="feed"]'));
-        } else {
-            var html = '<p>Feed not found.</p>';
-            $('#feed-container').html(html);
-        }
-    }).fail(function(err) {
-        myApp.hideIndicator();
-        myApp.alert('Some error occurred on connecting.');
-        console.log('fail: ' + j2s(err));
-    }).always();
+    //         html +=
+    //             '<div class="card c_ard ks-facebook-card">' +
+				// 	'<div class="black_overlay"></div>' +
+				// 	'<div class="card-header no-border pro_view">' +
+				// 		'<div class="ks-facebook-avatar pro_pic">' +
+				// 			'<img src="' + profile_image + '" width="34" height="34">' +
+				// 		'</div>' +
+				// 		'<div class="ks-facebook-name pro_name">' + val.first_name + '</div>' +
+				// 		'<div class="ks-facebook-date pro_tag">'+tags+'</div>' +
+				// 	'</div>' +
+				// 	'<div class="card-content">' +
+				// 		'<img data-src="' + image_url + val.image + '" width="100%" class="lazy lazy-fadein">' +
+				// 	'</div>' +
+				// '</div>'+
+				// '<div class="card-footer no-border pad_5">' +
+				// 	'<div class="desc">' + val.description + '</div>' +
+				// '</div>';
+    //         // });
+    //         $('#feed-container').html(html);
+    //         $('#feed_comment').data('id', val.id);
+    //         myApp.initImagesLazyLoad($('[data-page="feed"]'));
+    //     } else {
+    //         var html = '<p>Feed not found.</p>';
+    //         $('#feed-container').html(html);
+    //     }
+    // }).fail(function(err) {
+    //     myApp.hideIndicator();
+    //     myApp.alert('Some error occurred on connecting.');
+    //     console.log('fail: ' + j2s(err));
+    // }).always();
 }
 
 function load_comments(type, id) {

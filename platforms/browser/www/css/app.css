@@ -248,6 +248,48 @@
     bottom: 30px;
 }
 
+.inner_pro_view {
+    width: 50%;
+    padding: 0 !important;
+    z-index: 1;
+    left: 15px;
+}
+
+.inner_pro_name{
+    left: 5%;
+    position: relative;
+    top: 20px;
+    color: #000000;
+    font-size: 1em !important;
+    letter-spacing: 0.5px;
+}
+
+.inner_pro_tag{
+    position: relative;
+    top: 20px;
+    left: 5%;
+    color: #c2c2c2 !important;
+    font-size: 0.7em !important;
+}
+
+.inner_like_share{
+    background: transparent !important;
+    width: 27%;
+    position: absolute;
+    z-index: 1;
+    right: 5px;
+    bottom: 15px;
+}
+
+.inner_pro_pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 70px;
+    background: #000;
+    overflow: hidden;
+    margin: 5%;
+}
+
 .pro_pic{
     width: 50px;
     height: 50px;
@@ -620,8 +662,10 @@
 
 .own_feed {
     height: auto;
-    padding: 0 5px;
+    padding: 0 1px;
     overflow: hidden;
+    width: 49.5%;
+    float: left;
 }
 
 .user_status,.user_status1{

@@ -84,6 +84,16 @@ myApp.onPageInit('feeds', function(page) {
     load_feeds();
 });
 
+myApp.onPageInit('settings', function(page) {
+    myApp.allowPanelOpen = true;
+    bottom_tabs();
+});
+
+myApp.onPageInit('profile_list', function(page) {
+    myApp.allowPanelOpen = true;
+    bottom_tabs();
+});
+
 myApp.onPageInit('buzzs', function(page) {
     myApp.allowPanelOpen = true;
     bottom_tabs();
@@ -101,8 +111,8 @@ myApp.onPageInit('feed', function(page) {
     myApp.allowPanelOpen = true;
     bottom_tabs();
     var feed_id = page.query.id;
-    load_feed(feed_id);
-    load_comments('feed', feed_id);
+    // load_feed(feed_id);
+    // load_comments('feed', feed_id);
 });
 
 myApp.onPageInit('buzz', function(page) {

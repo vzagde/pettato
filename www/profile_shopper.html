@@ -11,7 +11,7 @@
     <div class="page-content pad_55">
         <div class="content-block f_box">
 			<div class="c_b">
-				<button onclick="profile_cover_image();" class="button button-big cover_image_btn insert_cover"><i class="material-icons cvr">insert_photo</i></button>
+				<!-- <button onclick="profile_cover_image();" class="button button-big cover_image_btn insert_cover"><i class="material-icons cvr">insert_photo</i></button> -->
 				<div class="cover_box">
 					<img width="100%" src="img/pet_cover.png" alt="" class="cover_image">
 				</div>
@@ -59,20 +59,45 @@
 					<p class="">Business<br>Account</p>
 				</div>
 			</div>
-			<div class="user_own_feed">
-				<div class="profile-feed-container">
-					<div class="own_feed">
-						<a href="#"><img src="img/pet_feed3.png" class="wdh" alt="" /></a>
-				    </div>
-					<div class="own_feed">
-						<a href="#"><img src="img/pet_feed1.png" class="wdh" alt="" /></a>
-				    </div>
-					<div class="own_feed">
-						<a href="#"><img src="img/pet_feed2.png" class="wdh" alt="" /></a>
-				    </div>
-					<div class="own_feed">
-						<a href="#"><img src="img/pet_feed4.png" class="wdh" alt="" /></a>
-				    </div>
+			<div class="user_own_feed f_box">
+				<div class="profile-feed-container f_box">
+		            <div class="card c_ard ks-facebook-card own_feed">
+		                <div class="black_overlay"></div>
+		                <a class="card-content" href="#">
+		                    <img data-src="img/gallery_image1.jpg" width="100%" class="lazy lazy-fadein">
+		                </a>
+		                <div class="card-footer no-border like_share">
+		                    <a href="javascript:void(0);" data-liked="0" class=""><i class="material-icons white_heart">share</i></a>
+		                </div>
+		            </div>
+		            <div class="card c_ard ks-facebook-card own_feed">
+		                <div class="black_overlay"></div>
+		                <a class="card-content" href="#">
+		                    <img data-src="img/gallery_image2.jpg" width="100%" class="lazy lazy-fadein">
+		                </a>
+		                <div class="card-footer no-border like_share">
+		                    <a href="javascript:void(0);" data-liked="0" class=""><i class="material-icons white_heart">share</i></a>
+		                </div>
+		            </div>
+		            <div class="card c_ard ks-facebook-card own_feed">
+		                <div class="black_overlay"></div>
+		                <a class="card-content" href="#">
+		                    <img data-src="img/gallery_image3.jpg" width="100%" class="lazy lazy-fadein">
+		                </a>
+		                <div class="card-footer no-border like_share">
+		                    <a href="javascript:void(0);" data-liked="0" class=""><i class="material-icons white_heart">share</i></a>
+		                </div>
+		            </div>
+		            <div class="card c_ard ks-facebook-card own_feed">
+		                <div class="black_overlay"></div>
+		                <a class="card-content" href="#">
+		                    <img data-src="img/gallery_image4.jpg" width="100%" class="lazy lazy-fadein">
+		                </a>
+		                <div class="card-footer no-border like_share">
+		                    <a href="javascript:void(0);" data-liked="0" class=""><i class="material-icons white_heart">share</i></a>
+		                </div>
+		            </div>
+					<div style="clear: both"></div>
 				</div>
 			</div>
         </div>
@@ -88,6 +113,9 @@
                 <a href="#" class="tab-link create_feed" onclick="goto_page('create_feed.html')">
                     <i class="material-icons color_blk">linked_camera</i>
                 </a>
+                <a href="#" class="tab-link notifications" onclick="goto_profile()">
+                    <i class="material-icons color_blk">account_circle</i>
+                </a>
                 <a href="#" class="tab-link chats" onclick="goto_page('chats.html')">
                     <span class="badge bg-red"></span>
                     <i class="material-icons color_blk">chat</i>
@@ -95,9 +123,6 @@
 				<a href="#" class="tab-link notifications" onclick="goto_page('notifications.html')">
                     <span class="badge bg-green"></span>
                     <i class="material-icons color_blk">notifications_paused</i>
-                </a>
-                <a href="#" class="tab-link notifications" onclick="goto_profile()">
-                    <i class="material-icons color_blk">account_circle</i>
                 </a>
             </div>
         </div>
