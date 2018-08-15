@@ -351,6 +351,24 @@
     color:#fff;
 }
 
+.white_heart_bubble {
+    border-radius: 90px;
+    padding: 6px;
+    color: #ffffff;
+}
+
+.bg_yellow {
+    background: #FFEB3B;
+}
+
+.bg_green {
+    background: #4caf50;
+}
+
+.bg_blue {
+    background: #9c27b0;
+}
+
 .black_overlay {
     position: absolute;
     height: 100%;

@@ -1116,7 +1116,7 @@ function load_feeds() {
     }
 
     $(".add_clk").click(function() {
-        $(".shr_lnk").hide();
+        // $(".shr_lnk").hide();
         $(this).prev(".shr_lnk").slideToggle();
         $(this).prev(".shr_lnk").prev(".shr_lnk").slideToggle();
         $(this).prev(".shr_lnk").prev(".shr_lnk").prev(".shr_lnk").slideToggle();
